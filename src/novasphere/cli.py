@@ -12,7 +12,7 @@ from novasphere import __version__, config, logger
 from novasphere.utils.dependency_checker import check_dependencies_startup
 from novasphere.ui.cli.cli_interface import CLIInterface
 from novasphere.ui.gui.gui_interface import GUIInterface
-from novasphere.ui.web.web_interface import WebInterface
+from web.backend.app import WebInterface
 
 
 def main():

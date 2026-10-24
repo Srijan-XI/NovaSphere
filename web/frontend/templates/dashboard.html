@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaSphere</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools"></i> NovaSphere
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/battery"><i class="fas fa-battery-half"></i> Battery</a>
+                <a class="nav-link" href="/diagnostics"><i class="fas fa-stethoscope"></i> Diagnostics</a>
+                <a class="nav-link" href="/monitoring"><i class="fas fa-chart-line"></i> Monitoring</a>
+                <a class="nav-link" href="/packages"><i class="fas fa-box"></i> Packages</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">System Dashboard</h1>
+            </div>
+        </div>
+
+        <!-- System Overview Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title">CPU Usage</h6>
+                                <h3 id="cpu-usage">---%</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-microchip fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title">Memory Usage</h6>
+                                <h3 id="memory-usage">---%</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-memory fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title">Disk Usage</h6>
+                                <h3 id="disk-usage">---%</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-hdd fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title">Battery</h6>
+                                <h3 id="battery-level">---%</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-battery-half fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Cards -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-battery-half"></i> Battery Monitor</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Monitor battery status, charging time estimation, and power consumption.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Real-time battery percentage</li>
+                            <li><i class="fas fa-check text-success"></i> Charging time estimation</li>
+                            <li><i class="fas fa-check text-success"></i> Power consumption tracking</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/battery" class="btn btn-primary">Open Battery Monitor</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5><i class="fas fa-stethoscope"></i> Hardware Diagnostics</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Comprehensive hardware component testing and diagnostics.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Bluetooth & Wi-Fi testing</li>
+                            <li><i class="fas fa-check text-success"></i> Camera & audio diagnostics</li>
+                            <li><i class="fas fa-check text-success"></i> Input device testing</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/diagnostics" class="btn btn-success">Run Diagnostics</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-warning text-white">
+                        <h5><i class="fas fa-chart-line"></i> System Monitor</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Real-time system performance monitoring and analytics.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> CPU, memory, disk monitoring</li>
+                            <li><i class="fas fa-check text-success"></i> Temperature sensors</li>
+                            <li><i class="fas fa-check text-success"></i> Process management</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/monitoring" class="btn btn-warning text-dark">View Monitoring</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">
+                        <h5><i class="fas fa-box"></i> Package Manager</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Windows package management using winget (Windows only).</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Install/uninstall packages</li>
+                            <li><i class="fas fa-check text-success"></i> Update management</li>
+                            <li><i class="fas fa-check text-success"></i> Source management</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/packages" class="btn btn-info text-dark">Manage Packages</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Information -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> System Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="system-info">
+                            <div class="col-md-6">
+                                <p><strong>Platform:</strong> <span id="platform">Loading...</span></p>
+                                <p><strong>Architecture:</strong> <span id="architecture">Loading...</span></p>
+                                <p><strong>Hostname:</strong> <span id="hostname">Loading...</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Processor:</strong> <span id="processor">Loading...</span></p>
+                                <p><strong>CPU Cores:</strong> <span id="cpu-cores">Loading...</span></p>
+                                <p><strong>Memory:</strong> <span id="total-memory">Loading...</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p>&copy; 2025 NovaSphere by Srijan-XI</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

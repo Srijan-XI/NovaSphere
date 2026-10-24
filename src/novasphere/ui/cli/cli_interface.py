@@ -7,6 +7,7 @@ import time
 from typing import Optional, Dict, Any
 from novasphere.utils.config import Config
 from novasphere.utils.logger import Logger
+from novasphere.utils.log_store import LogDataStore
 from novasphere.core.battery.battery_monitor import create_battery_monitor
 from novasphere.core.diagnostics.hardware_tests import create_diagnostics
 from novasphere.core.monitoring.system_monitor import create_system_monitor
@@ -19,11 +20,13 @@ class CLIInterface:
     def __init__(self, config: Config, logger: Logger):
         self.config = config
         self.logger = logger
+        self.data_store = LogDataStore("cli")
         self._running = False
     
     def run(self, tool: Optional[str] = None):
         """Run the CLI interface"""
         self._running = True
+        self.data_store.log_event("startup", {"tool": tool or "menu"})
         
         if tool:
             # Run specific tool

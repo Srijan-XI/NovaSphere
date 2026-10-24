@@ -1,0 +1,101 @@
+/* Battery Monitor Styles */
+.battery-display {
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.battery-icon {
+    position: relative;
+}
+
+.battery-icon .fa-battery-empty {
+    color: #dc3545;
+}
+
+.battery-icon .fa-battery-quarter {
+    color: #fd7e14;
+}
+
+.battery-icon .fa-battery-half {
+    color: #ffc107;
+}
+
+.battery-icon .fa-battery-three-quarters {
+    color: #20c997;
+}
+
+.battery-icon .fa-battery-full {
+    color: #28a745;
+}
+
+.battery-charging {
+    animation: charging-pulse 2s infinite;
+}
+
+@keyframes charging-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.progress {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    transition: width 0.5s ease-in-out;
+    border-radius: 15px;
+}
+
+.progress-bar.bg-danger {
+    background: linear-gradient(90deg, #dc3545 0%, #c82333 100%);
+}
+
+.progress-bar.bg-warning {
+    background: linear-gradient(90deg, #ffc107 0%, #e0a800 100%);
+}
+
+.progress-bar.bg-success {
+    background: linear-gradient(90deg, #28a745 0%, #1e7e34 100%);
+}
+
+.info-item {
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-item strong {
+    color: #495057;
+}
+
+.charging-indicator {
+    color: #28a745;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+.alert-low-battery {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert-critical-battery {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    animation: critical-flash 1s infinite;
+}
+
+@keyframes critical-flash {
+    0%, 100% { background-color: #f8d7da; }
+    50% { background-color: #dc3545; color: white; }
+}

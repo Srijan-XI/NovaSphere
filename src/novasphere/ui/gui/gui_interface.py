@@ -11,6 +11,7 @@ from typing import Optional
 from pathlib import Path
 from novasphere.utils.config import Config
 from novasphere.utils.logger import Logger
+from novasphere.utils.log_store import LogDataStore
 from novasphere.utils.theme_manager import ThemeManager, ConfigManager
 from novasphere.utils.tray_manager import TrayHelper, is_tray_available
 from novasphere.utils.performance_graph import PerformanceGraph, is_matplotlib_available
@@ -34,6 +35,7 @@ class GUIInterface:
     def __init__(self, config: Config, logger: Logger):
         self.config = config
         self.logger = logger
+        self.data_store = LogDataStore("gui")
         self.root = None
         self.notebook = None
         self._running = False
@@ -66,6 +68,7 @@ class GUIInterface:
     def run(self):
         """Run the GUI interface"""
         self.logger.info("Launching Tkinter GUI interface v2.0")
+        self.data_store.log_event("startup", {"interface": "gui"})
         
         # Create main window
         self.root = tk.Tk()

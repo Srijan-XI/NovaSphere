@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Manager - NovaSphere</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tools"></i> NovaSphere
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/"><i class="fas fa-home"></i> Dashboard</a>
+                <a class="nav-link" href="/battery"><i class="fas fa-battery-half"></i> Battery</a>
+                <a class="nav-link" href="/diagnostics"><i class="fas fa-stethoscope"></i> Diagnostics</a>
+                <a class="nav-link" href="/monitoring"><i class="fas fa-chart-line"></i> Monitoring</a>
+                <a class="nav-link active" href="/packages"><i class="fas fa-box"></i> Packages</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1><i class="fas fa-box"></i> Package Manager</h1>
+                <p class="text-muted">Windows package management using winget</p>
+            </div>
+        </div>
+
+        <!-- Package Manager Status -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="winget-status">
+                            <div class="d-flex align-items-center">
+                                <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                                <span>Checking winget availability...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Package Tabs -->
+        <div class="row" id="package-content" style="display: none;">
+            <div class="col-12">
+                <ul class="nav nav-tabs" id="packageTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="installed-tab" data-bs-toggle="tab" 
+                                data-bs-target="#installed" type="button" role="tab">
+                            <i class="fas fa-check"></i> Installed Packages
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="upgradable-tab" data-bs-toggle="tab" 
+                                data-bs-target="#upgradable" type="button" role="tab">
+                            <i class="fas fa-arrow-up"></i> Upgradable
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="search-tab" data-bs-toggle="tab" 
+                                data-bs-target="#search" type="button" role="tab">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="packageTabContent">
+                    <!-- Installed Packages -->
+                    <div class="tab-pane fade show active" id="installed" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6><i class="fas fa-list"></i> Installed Packages</h6>
+                                <button class="btn btn-sm btn-primary" onclick="loadInstalledPackages()">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="installed-packages">
+                                    <p class="text-muted">Click refresh to load installed packages.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upgradable Packages -->
+                    <div class="tab-pane fade" id="upgradable" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6><i class="fas fa-arrow-up"></i> Upgradable Packages</h6>
+                                <div>
+                                    <button class="btn btn-sm btn-success me-2" onclick="upgradeAllPackages()">
+                                        <i class="fas fa-arrow-up"></i> Upgrade All
+                                    </button>
+                                    <button class="btn btn-sm btn-primary" onclick="loadUpgradablePackages()">
+                                        <i class="fas fa-sync-alt"></i> Refresh
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="upgradable-packages">
+                                    <p class="text-muted">Click refresh to check for package updates.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Search Packages -->
+                    <div class="tab-pane fade" id="search" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-search"></i> Search Packages</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="search-query" 
+                                               placeholder="Enter package name to search...">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-primary" onclick="searchPackages()">
+                                            <i class="fas fa-search"></i> Search
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="search-results">
+                                    <p class="text-muted">Enter a search term and click search to find packages.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Package Operations -->
+        <div class="row mt-4" id="operations-log" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6><i class="fas fa-history"></i> Operation Log</h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="operation-results">
+                            <p class="text-muted">Package operations will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Install Modal -->
+    <div class="modal fade" id="installModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Install Package</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to install <strong id="install-package-name"></strong>?</p>
+                    <div id="install-progress" style="display: none;">
+                        <div class="d-flex align-items-center">
+                            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                            <span>Installing package...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirm-install">Install</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/packages.js"></script>
+</body>
+</html>

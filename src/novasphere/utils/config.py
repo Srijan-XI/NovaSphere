@@ -37,8 +37,16 @@ class Config:
                 "web": {
                     "port": 8080,
                     "host": "localhost",
-                    "auto_open_browser": True
+                    "auto_open_browser": True,
+                    "debug": False
                 }
+            },
+            "storage": {
+                "mode": "log_file",
+                "web_type": "sqlite",
+                "web_db_path": "web/backend/data/novasphere_web.db",
+                "cli_gui_type": "log_file",
+                "cli_gui_log_path": "logs/novasphere_cli_gui.log"
             },
             "tools": {
                 "battery": {
