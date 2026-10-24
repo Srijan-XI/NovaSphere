@@ -82,11 +82,11 @@ data/reports/*
 !data/logs/.gitkeep
 !data/reports/.gitkeep
 
-# Old structure (kept for reference, will be removed)
+web/backend/data/*.db Ignore the database file in the backend data directory
 # core/
 # interfaces/
 # test/
-# logs/
+logs/
 # reports/
 
 # Config files (user-specific)

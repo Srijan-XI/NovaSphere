@@ -20,10 +20,10 @@ def main():
     
     # Check dependencies first (unless skipped)
     if '--no-deps-check' not in sys.argv:
-        print("🔍 Checking dependencies...")
+        print("Checking dependencies...")
         if not check_dependencies_startup():
             sys.exit(1)
-        print("✅ All dependencies OK!\n")
+        print("All dependencies OK!\n")
     
     # Parse command line arguments
     parser = argparse.ArgumentParser(

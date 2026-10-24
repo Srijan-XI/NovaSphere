@@ -197,4 +197,10 @@ def create_app() -> Flask:
 
 
 if __name__ == "__main__":
-    WebInterface().run()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run the NovaSphere web server")
+    parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument("--port", type=int, default=8080)
+    arguments = parser.parse_args()
+    WebInterface().run(host=arguments.host, port=arguments.port)
