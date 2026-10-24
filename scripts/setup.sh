@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =============================================================================
-# NovaSphere: All-in-One System Tools - Linux Setup Script
+# NovaSphere: NovaSphere - Linux Setup Script
 # =============================================================================
 # Author: Srijan-XI
 # Date: October 1, 2025
@@ -37,7 +37,7 @@ LOG_FILE="/tmp/novasphere-setup.log"
 print_header() {
     echo -e "${CYAN}"
     echo "==================================================================================="
-    echo "       NovaSphere: All-in-One System Tools - Linux Setup Script"
+    echo "       NovaSphere: NovaSphere - Linux Setup Script"
     echo "===================================================================================="
     echo -e "${NC}"
 }
@@ -547,7 +547,7 @@ main() {
 # Handle command line arguments
 case "${1:-}" in
     --help|-h)
-        echo "NovaSphere: All-in-One System Tools - Linux Setup Script"
+        echo "NovaSphere: NovaSphere - Linux Setup Script"
         echo ""
         echo "Usage: $0 [OPTIONS]"
         echo ""

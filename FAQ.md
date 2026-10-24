@@ -41,7 +41,7 @@ A: Very minimal - typically 20-50MB RAM and <1% CPU during idle. Resource usage 
 A: Python 3.7 or higher. We recommend Python 3.9+ for the best experience.
 
 **Q: Can I extend this with custom tools?**
-A: Yes, the modular architecture makes it easy to add new tools. See the developer documentation in the repository and check out the existing tools in `src/aio_sdms/core/` for examples.
+A: Yes, the modular architecture makes it easy to add new tools. See the developer documentation in the repository and check out the existing tools in `src/novasphere/core/` for examples.
 
 **Q: Does it work on ARM processors?**
 A: Yes, it works on ARM64 systems including Raspberry Pi and Apple Silicon Macs (with manual installation).

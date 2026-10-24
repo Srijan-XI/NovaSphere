@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aio-sdms"
+name = "novasphere"
 version = "2.0.0"
 description = "All-in-One System Diagnostic & Monitoring Suite"
 readme = "README.md"
@@ -69,28 +69,28 @@ dev = [
     "mypy>=0.950",
 ]
 all = [
-    "aio-sdms[gui,windows,linux,diagnostics]",
+    "novasphere[gui,windows,linux,diagnostics]",
 ]
 
 [project.urls]
-Homepage = "https://github.com/Srijan-XI/AIO-SDMS"
-Documentation = "https://github.com/Srijan-XI/AIO-SDMS/blob/main/README.md"
-Repository = "https://github.com/Srijan-XI/AIO-SDMS.git"
-Issues = "https://github.com/Srijan-XI/AIO-SDMS/issues"
+Homepage = "https://github.com/Srijan-XI/NovaSphere"
+Documentation = "https://github.com/Srijan-XI/NovaSphere/blob/main/README.md"
+Repository = "https://github.com/Srijan-XI/NovaSphere.git"
+Issues = "https://github.com/Srijan-XI/NovaSphere/issues"
 
 [project.scripts]
-aio-sdms = "aio_sdms.cli:main"
+nova = "novasphere.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["aio_sdms*"]
+include = ["novasphere*"]
 exclude = ["tests*"]
 
 [tool.setuptools.package-data]
-aio_sdms = [
+novasphere = [
     "ui/web/static/**/*",
     "ui/web/templates/**/*",
     "*.json",
@@ -105,13 +105,13 @@ python_functions = ["test_*"]
 addopts = [
     "--verbose",
     "--color=yes",
-    "--cov=src/aio_sdms",
+    "--cov=src/novasphere",
     "--cov-report=html",
     "--cov-report=term-missing",
 ]
 
 [tool.coverage.run]
-source = ["src/aio_sdms"]
+source = ["src/novasphere"]
 omit = [
     "*/tests/*",
     "*/__pycache__/*",

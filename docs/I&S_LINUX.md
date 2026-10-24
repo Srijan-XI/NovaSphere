@@ -1,6 +1,6 @@
 # INSTALLATION & SETUP — LINUX
 
-This document combines the comprehensive installation guide and the setup summary for the All-in-One System Tools on Linux systems. It merges the contents of `INSTALL_LINUX.md` and `LINUX_SETUP.md` into a single reference to simplify installation, verification, troubleshooting and development workflows.
+This document combines the comprehensive installation guide and the setup summary for the NovaSphere on Linux systems. It merges the contents of `INSTALL_LINUX.md` and `LINUX_SETUP.md` into a single reference to simplify installation, verification, troubleshooting and development workflows.
 
 ## 🚀 Quick Installation
 
@@ -8,8 +8,8 @@ This document combines the comprehensive installation guide and the setup summar
 
 ```bash
 # Clone the repository
-git clone https://github.com/Srijan-XI/AIO-SDMS.git
-cd aio-sdms
+git clone https://github.com/Srijan-XI/NovaSphere.git
+cd nova
 
 # Run the setup script
 chmod +x setup.sh
@@ -28,13 +28,13 @@ sudo apt-get install -y python3-dev python3-venv python3-pip build-essential \
     libopencv-dev python3-opencv bluetooth libbluetooth-dev bluez bluez-tools
 
 # 2. Create installation directory
-mkdir -p ~/.local/share/allinone-system-tools
+mkdir -p ~/.local/share/novasphere
 
 # 3. Copy files
-cp -r * ~/.local/share/allinone-system-tools/
+cp -r * ~/.local/share/novasphere/
 
 # 4. Create virtual environment
-cd ~/.local/share/allinone-system-tools
+cd ~/.local/share/novasphere
 python3 -m venv venv
 
 # 5. Install Python dependencies
@@ -43,14 +43,14 @@ pip install -r requirements-linux.txt
 
 # 6. Create launcher script
 mkdir -p ~/.local/bin
-cat > ~/.local/bin/allinone-tools << 'EOF'
+cat > ~/.local/bin/nova << 'EOF'
 #!/bin/bash
-source ~/.local/share/allinone-system-tools/venv/bin/activate
-cd ~/.local/share/allinone-system-tools
+source ~/.local/share/novasphere/venv/bin/activate
+cd ~/.local/share/novasphere
 python main.py "$@"
 deactivate
 EOF
-chmod +x ~/.local/bin/allinone-tools
+chmod +x ~/.local/bin/nova
 
 # 7. Update PATH
 echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
@@ -136,25 +136,25 @@ sudo zypper install python3-devel gcc gcc-c++ make portaudio-devel \
 ### Command Line Interface (CLI)
 
 ```bash
-allinone-tools                    # Default CLI interface
-allinone-tools --cli              # Explicit CLI mode
-allinone-tools battery            # Direct battery monitoring
-allinone-tools diagnostics        # Hardware diagnostics
-allinone-tools monitor            # System monitoring
-allinone-tools packages           # Package management
+nova                    # Default CLI interface
+nova --cli              # Explicit CLI mode
+nova battery            # Direct battery monitoring
+nova diagnostics        # Hardware diagnostics
+nova monitor            # System monitoring
+nova packages           # Package management
 ```
 
 ### Web Interface
 
 ```bash
-allinone-tools --web              # Launch web interface
+nova --web              # Launch web interface
 # Access via browser: http://localhost:5000
 ```
 
 ### GUI Interface (Future)
 
 ```bash
-allinone-tools --gui              # Launch GUI interface
+nova --gui              # Launch GUI interface
 ```
 
 ## 🔧 Configuration
@@ -162,7 +162,7 @@ allinone-tools --gui              # Launch GUI interface
 ### Config File Location
 
 ```
-~/.config/allinone-system-tools/config.json
+~/.config/novasphere/config.json
 ```
 
 ### Default Configuration (example)
@@ -171,7 +171,7 @@ allinone-tools --gui              # Launch GUI interface
 {
     "logging": {
         "level": "INFO",
-        "file": "~/.local/share/allinone-system-tools/logs/app.log"
+        "file": "~/.local/share/novasphere/logs/app.log"
     },
     "interfaces": {
         "default": "cli",
@@ -213,13 +213,13 @@ After installation, verify the install and test functionality:
 
 ```bash
 # Test installation
-cd ~/.local/share/allinone-system-tools
+cd ~/.local/share/novasphere
 python3 verify_installation.py
 
 # Run basic checks
-allinone-tools --help
-allinone-tools battery --test
-allinone-tools diagnostics
+nova --help
+nova battery --test
+nova diagnostics
 ```
 
 The `verify_installation.py` script checks Python packages, system dependencies, and hardware access.
@@ -269,40 +269,40 @@ sudo systemctl restart bluetooth
 #### Python Virtual Environment Issues
 
 ```bash
-rm -rf ~/.local/share/allinone-system-tools/venv
-cd ~/.local/share/allinone-system-tools
+rm -rf ~/.local/share/novasphere/venv
+cd ~/.local/share/novasphere
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements-linux.txt
 ```
 
 ### Logs
-- Installation Log: `/tmp/allinone-setup.log`
-- Application Log: `~/.local/share/allinone-system-tools/logs/app.log`
-- Error Log: `~/.local/share/allinone-system-tools/logs/error.log`
+- Installation Log: `/tmp/novasphere-setup.log`
+- Application Log: `~/.local/share/novasphere/logs/app.log`
+- Error Log: `~/.local/share/novasphere/logs/error.log`
 
 ## 🗑️ Uninstallation
 
 ### Automatic Uninstallation
 
 ```bash
-~/.local/share/allinone-system-tools/uninstall.sh
+~/.local/share/novasphere/uninstall.sh
 ```
 
 ### Manual Uninstallation
 
 ```bash
 # Remove installation directory
-rm -rf ~/.local/share/allinone-system-tools
+rm -rf ~/.local/share/novasphere
 
 # Remove launcher
-rm -f ~/.local/bin/allinone-tools
+rm -f ~/.local/bin/nova
 
 # Remove desktop entry
-rm -f ~/.local/share/applications/allinone-system-tools.desktop
+rm -f ~/.local/share/applications/novasphere.desktop
 
 # Remove config
-rm -rf ~/.config/allinone-system-tools
+rm -rf ~/.config/novasphere
 
 # Remove PATH entry (manually edit ~/.bashrc or ~/.zshrc)
 ```
@@ -313,8 +313,8 @@ For contributors and developers:
 
 ```bash
 # Clone repository
-git clone https://github.com/Srijan-XI/AIO-SDMS.git
-cd aio-sdms
+git clone https://github.com/Srijan-XI/NovaSphere.git
+cd nova
 
 # Install in development mode
 python3 -m venv venv
@@ -344,9 +344,9 @@ isort .
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 Support channels:
-- GitHub Issues: https://github.com/Srijan-XI/AIO-SDMS/issues
-- Documentation: https://github.com/Srijan-XI/AIO-SDMS/wiki
-- Discussions: https://github.com/Srijan-XI/AIO-SDMS/discussions
+- GitHub Issues: https://github.com/Srijan-XI/NovaSphere/issues
+- Documentation: https://github.com/Srijan-XI/NovaSphere/wiki
+- Discussions: https://github.com/Srijan-XI/NovaSphere/discussions
 
 ---
 

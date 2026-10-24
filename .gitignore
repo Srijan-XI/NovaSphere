@@ -91,7 +91,7 @@ data/reports/*
 
 # Config files (user-specific)
 config.json
-.aio-sdms/
+.novasphere/
 
 # Temporary files
 *.tmp

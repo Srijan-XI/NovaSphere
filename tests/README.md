@@ -1,6 +1,6 @@
-# AIO-SDMS Test Suite
+# NovaSphere Test Suite
 
-Comprehensive unit tests for AIO-SDMS v2.0 modules using pytest in Jupyter notebooks.
+Comprehensive unit tests for NovaSphere v2.0 modules using pytest in Jupyter notebooks.
 
 ## Overview
 
@@ -183,13 +183,13 @@ To run tests in CI/CD pipeline:
 
 ```powershell
 # Install Jupyter kernel
-python -m ipykernel install --user --name aio-sdms
+python -m ipykernel install --user --name nova
 
 # List kernels
 jupyter kernelspec list
 
 # Use specific kernel
-jupyter notebook --kernel=aio-sdms
+jupyter notebook --kernel=nova
 ```
 
 ### Import Errors
@@ -237,7 +237,7 @@ If tests fail:
 
 ## Contributing
 
-When adding new features to AIO-SDMS:
+When adding new features to NovaSphere:
 
 1. Create corresponding test notebook
 2. Aim for 80%+ coverage

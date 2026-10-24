@@ -1,9 +1,9 @@
 # Software Requirements Specification (SRS)
-## AIO-SDMS (All-in-One System Diagnostic & Monitoring Suite)
+## NovaSphere (All-in-One System Diagnostic & Monitoring Suite)
 
 **Document Version:** 1.0  
 **Date:** October 1, 2025  
-**Project:** AIO-SDMS Unified System Utilities  
+**Project:** NovaSphere Unified System Utilities
 **Author:** Srijan-XI  
 
 ---
@@ -14,7 +14,7 @@
 This document outlines the requirements for developing a unified, cross-platform system diagnostic and monitoring tool that consolidates multiple hardware testing and system monitoring functionalities into a single application with multiple interface options (CLI, GUI, Web).
 
 ### 1.2 Scope
-The All-in-One System Tools project aims to combine existing standalone utilities into a comprehensive system diagnostic suite that provides:
+The NovaSphere project aims to combine existing standalone utilities into a comprehensive system diagnostic suite that provides:
 - Battery monitoring and charging analysis
 - Hardware component diagnostics
 - System performance monitoring
@@ -359,7 +359,7 @@ config.json
 
 ## 10. Conclusion
 
-The All-in-One System Diagnostic & Monitoring Tools project represents a natural evolution of the existing Z-TOOLS collection. With high technical feasibility, clear market demand, and existing proven components, this project has excellent potential for success.
+The All-in-One System Diagnostic & Monitoring Tools project represents a natural evolution of the existing NovaSphere collection. With high technical feasibility, clear market demand, and existing proven components, this project has excellent potential for success.
 
 The unified approach will solve real problems for users while leveraging the substantial investment already made in the individual tools. The phased development approach ensures manageable risk while delivering value incrementally.
 

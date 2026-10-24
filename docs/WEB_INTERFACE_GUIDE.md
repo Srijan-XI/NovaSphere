@@ -7,13 +7,13 @@ The web interface provides a modern, responsive dashboard for accessing all syst
 
 ### Method 1: Using the unified entry point
 ```bash
-cd AllInOneSystemTools
+cd NovaSphere
 python main.py --interface web --port 5000
 ```
 
 ### Method 2: Direct web interface launch
 ```bash
-cd AllInOneSystemTools/interfaces/web
+cd NovaSphere/interfaces/web
 python web_interface.py
 ```
 

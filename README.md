@@ -1,4 +1,6 @@
-# NovaSphere - All-in-One System Diagnostic & Monitoring Suite
+# NovaSphere
+
+> All-in-One System Diagnostic & Monitoring Suite
 
 NovaSphere is an all-in-One System Diagnostic & Monitoring Suite which comprehensive unified system diagnostic and monitoring tool suite that combines battery monitoring, hardware diagnostics, system monitoring, and package management into a single application with multiple interface options.
 
@@ -27,7 +29,7 @@ NovaSphere is an all-in-One System Diagnostic & Monitoring Suite which comprehen
 - ✅ Arch Linux, Manjaro
 - ⚠️ openSUSE (should work)
 
-## 🚀 All-in-One System Tools
+## 🚀 NovaSphere
 
 A unified application that combines all diagnostic and monitoring tools with multiple interface options:
 
@@ -40,9 +42,9 @@ nova --gui          # Graphical Interface
 nova --web          # Web Interface
 
 # Or using Python module
-python -m aio_sdms --cli
-python -m aio_sdms --gui
-python -m aio_sdms --web
+python -m novasphere --cli
+python -m novasphere --gui
+python -m novasphere --web
 
 # Legacy method (still supported)
 python main.py --cli
@@ -83,7 +85,7 @@ python main.py --cli
    nova --version      # Show version
    
    # Or use Python module
-   python -m aio_sdms --cli
+   python -m novasphere --cli
    ```
 
 ### Alternative Installation (Manual Dependencies)
@@ -143,8 +145,8 @@ nova --web              # Launch web interface
 # Then open: http://localhost:8080
 
 # Using Python module
-python -m aio_sdms --cli battery
-python -m aio_sdms --web --port 5000
+python -m novasphere --cli battery
+python -m novasphere --web --port 5000
 
 # Legacy method
 python main.py --cli battery
@@ -165,9 +167,9 @@ NovaSphere/
 ├── README.md            # This file
 ├── MIGRATION_GUIDE.md   # v1.0 → v2.0 migration guide
 │
-├── src/aio_sdms/        # Main package source
+├── src/novasphere/        # Main package source
 │   ├── __init__.py      # Package initialization
-│   ├── __main__.py      # Module entry point (python -m aio_sdms)
+│   ├── __main__.py      # Module entry point (python -m novasphere)
 │   ├── cli.py           # CLI command entry point
 │   │
 │   ├── core/            # Core functionality modules
@@ -219,7 +221,7 @@ NovaSphere/
 ### Key Changes from v1.0
 - ✅ **src-layout**: Modern Python package structure
 - ✅ **pyproject.toml**: PEP 517/518 compliant packaging
-- ✅ **Entry points**: `nova` command and `python -m aio_sdms`
+- ✅ **Entry points**: `nova` command and `python -m novasphere`
 - ✅ **Organized tests**: Separate unit/integration/fixtures
 - ✅ **Data separation**: logs/ and reports/ moved to data/
 - ✅ **Script isolation**: setup.sh and utilities in scripts/
@@ -370,8 +372,8 @@ nova --version
 nova --help
 
 # Using Python module
-python -m aio_sdms --cli battery
-python -m aio_sdms --verbose
+python -m novasphere --cli battery
+python -m novasphere --verbose
 
 # Legacy method
 python main.py --cli battery
@@ -386,7 +388,7 @@ nova --web
 nova --web --host 0.0.0.0 --port 8080
 
 # Using Python module
-python -m aio_sdms --web --port 5000
+python -m novasphere --web --port 5000
 ```
 
 ### Development Mode
@@ -457,7 +459,7 @@ Tested on various systems to ensure optimal performance:
 - ✅ **Major Restructuring**: Modern Python package with src-layout
 - ✅ **Package Installation**: `pip install -e .` with entry points
 - ✅ **CLI Command**: `nova` command available system-wide
-- ✅ **Module Entry**: `python -m aio_sdms` support
+- ✅ **Module Entry**: `python -m novasphere` support
 - ✅ **pyproject.toml**: PEP 517/518 compliant packaging
 - ✅ **Enhanced Features**: Themes, notifications, performance monitoring, report export
 - ✅ **Comprehensive Testing**: pytest-based unit tests in Jupyter notebooks
@@ -483,7 +485,7 @@ Tested on various systems to ensure optimal performance:
 ### Upgrade Path
 Migrating from v1.x to v2.0:
 1. **Install v2.0**: `pip install -e .` in the new structure
-2. **Import Changes**: Update `from core.common.*` to `from aio_sdms.utils.*`
+2. **Import Changes**: Update `from core.common.*` to `from novasphere.utils.*`
 3. **Entry Points**: Use `nova` command instead of `python main.py`
 4. **Configuration**: Same config.json format (no changes needed)
 5. **Data Migration**: Logs and reports automatically moved to data/

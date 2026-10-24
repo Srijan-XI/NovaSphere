@@ -1,4 +1,4 @@
-# 🌐 Web Interface - All-in-One System Tools
+# 🌐 Web Interface - NovaSphere
 
 ## Overview
 
@@ -46,7 +46,7 @@ pip install flask flask-cors psutil
 The easiest way to run the web interface:
 
 ```bash
-cd AllInOneSystemTools/interfaces/web
+cd NovaSphere/interfaces/web
 python standalone_server.py
 ```
 
@@ -59,14 +59,14 @@ This will:
 ### Method 2: Integrated with Main Application
 
 ```bash
-cd AllInOneSystemTools
+cd NovaSphere
 python main.py --interface web --port 5000
 ```
 
 ### Method 3: Direct Flask Run
 
 ```bash
-cd AllInOneSystemTools/interfaces/web
+cd NovaSphere/interfaces/web
 flask --app standalone_server run --host=127.0.0.1 --port=5000
 ```
 
@@ -257,7 +257,7 @@ To update the web interface:
 
 ## 📄 License
 
-This web interface is part of the All-in-One System Tools project and follows the same licensing terms.
+This web interface is part of the NovaSphere project and follows the same licensing terms.
 
 ---
 

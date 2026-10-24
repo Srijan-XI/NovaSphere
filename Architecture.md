@@ -57,7 +57,7 @@
 ### Import Errors
 ```bash
 # Ensure you're in the correct directory
-cd AIO-SDMS
+cd NovaSphere
 python main.py
 
 # Check Python path
@@ -80,7 +80,7 @@ sudo usermod -a -G audio,video,dialout $USER
 # Log out and back in for changes to take effect
 
 # Some hardware tests may require elevated permissions
-sudo allinone-tools diagnostics
+sudo nova diagnostics
 ```
 
 ### Audio/Video Issues
@@ -123,7 +123,7 @@ python main.py --verbose
 
 Check log files for detailed error information:
 - **Windows**: `logs/system_tools_YYYYMMDD.log`
-- **Linux**: `~/.local/share/allinone-system-tools/logs/`
+- **Linux**: `~/.local/share/novasphere/logs/`
 
 ## Getting Help
 

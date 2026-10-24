@@ -1,5 +1,5 @@
 """
-Unit tests for AIO-SDMS
+Unit tests for NovaSphere
 """
 
 __all__ = []

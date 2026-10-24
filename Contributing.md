@@ -6,9 +6,9 @@ We welcome contributions from the community! Here's how to get started:
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/Srijan-XI/AIO-SDMS.git
-   cd AIO-SDMS
-   cd AIO-SDMS
+   git clone https://github.com/Srijan-XI/NovaSphere.git
+   cd NovaSphere
+   cd NovaSphere
    ```
 
 2. **Set up development environment**

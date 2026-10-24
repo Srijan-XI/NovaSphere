@@ -1,4 +1,4 @@
-# Development Dependencies for AIO-SDMS
+# Development Dependencies for NovaSphere
 
 # Testing
 pytest>=7.0.0

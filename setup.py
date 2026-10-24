@@ -1,5 +1,5 @@
 """
-Setup script for AIO-SDMS
+Setup script for NovaSphere
 For backward compatibility - prefer using pyproject.toml
 """
 

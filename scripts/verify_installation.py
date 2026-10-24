@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-All-in-One System Tools - Installation Verification Script
+NovaSphere - Installation Verification Script
 Tests if the installation is working correctly on Linux systems
 """
 
@@ -9,6 +9,9 @@ import os
 import subprocess
 import importlib
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 
 def print_header():
     print("=" * 70)
@@ -149,9 +152,8 @@ def check_hardware_access():
 
 def check_file_permissions():
     print_section("File Permissions Check")
-    
-    # Check if main.py exists and is executable
-    main_py = Path("main.py")
+
+    main_py = PROJECT_ROOT / "main.py"
     if main_py.exists():
         print("✓ main.py exists")
         if os.access(main_py, os.X_OK):
@@ -161,9 +163,8 @@ def check_file_permissions():
     else:
         print("✗ main.py not found")
         return False
-    
-    # Check write permissions for config directory
-    config_dir = Path.home() / ".config" / "allinone-system-tools"
+
+    config_dir = Path.home() / ".config" / "novasphere"
     try:
         config_dir.mkdir(parents=True, exist_ok=True)
         test_file = config_dir / "test_write"
@@ -173,26 +174,35 @@ def check_file_permissions():
     except Exception as e:
         print(f"✗ Config directory not writable - {e}")
         return False
-    
+
     return True
 
 def test_application_launch():
     print_section("Application Launch Test")
-    
+
     try:
-        # Test if the application can show help
-        result = subprocess.run([sys.executable, "main.py", "--help"], 
-                              capture_output=True, text=True, timeout=30)
-        
+        cmd = [sys.executable, str(PROJECT_ROOT / "main.py"), "--help"]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30, cwd=str(PROJECT_ROOT))
+
         if result.returncode == 0:
             print("✓ Application launches successfully")
             print("✓ Help command works")
             return True
-        else:
-            print(f"✗ Application failed to launch - return code: {result.returncode}")
-            if result.stderr:
-                print(f"Error output: {result.stderr}")
-            return False
+
+        print(f"✗ Application failed to launch - return code: {result.returncode}")
+        if result.stderr:
+            print(f"Error output: {result.stderr}")
+
+        # Fallback: check installed CLI command if available
+        try:
+            cli_result = subprocess.run(["nova", "--help"], capture_output=True, text=True, timeout=20)
+            if cli_result.returncode == 0:
+                print("✓ Installed 'nova' command is available")
+                return True
+        except FileNotFoundError:
+            pass
+
+        return False
     except subprocess.TimeoutExpired:
         print("✗ Application launch timed out")
         return False
@@ -267,14 +277,14 @@ def generate_report():
     if passed == total:
         print("\n🎉 All tests passed! Your installation is ready to use.")
         print("\nTo get started, run:")
-        print("  allinone-tools --help")
-        print("  allinone-tools")
+        print("  nova --help")
+        print("  nova")
     elif passed >= total * 0.8:  # 80% pass rate
         print("\n⚠️  Most tests passed. Installation should work with minor issues.")
         print("Check the failed tests above and refer to the troubleshooting guide.")
     else:
         print("\n❌ Several tests failed. Please check your installation.")
-        print("Refer to INSTALL_LINUX.md for troubleshooting steps.")
+        print("Refer to the NovaSphere troubleshooting guide for help.")
     
     return passed == total
 
@@ -283,14 +293,13 @@ def main():
     
     if len(sys.argv) > 1 and sys.argv[1] in ['--help', '-h']:
         print("Usage: python3 verify_installation.py")
-        print("\nThis script verifies that All-in-One System Tools is correctly installed")
+        print("\nThis script verifies that NovaSphere is correctly installed")
         print("and all dependencies are available.")
         return
-    
-    # Change to the script directory
-    script_dir = Path(__file__).parent
-    os.chdir(script_dir)
-    
+
+    script_dir = Path(__file__).resolve().parent
+    os.chdir(PROJECT_ROOT)
+
     print("Starting installation verification...")
     print(f"Working directory: {os.getcwd()}")
     print(f"Python executable: {sys.executable}")
