@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =============================================================================
-# All-in-One System Tools - Linux Setup Script
+# NovaSphere: All-in-One System Tools - Linux Setup Script
 # =============================================================================
 # Author: Srijan-XI
 # Date: October 1, 2025
@@ -23,11 +23,12 @@ NC='\033[0m' # No Color
 
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INSTALL_DIR="$HOME/.local/share/allinone-system-tools"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+INSTALL_DIR="$HOME/.local/share/novasphere"
 BIN_DIR="$HOME/.local/bin"
 DESKTOP_DIR="$HOME/.local/share/applications"
 PYTHON_MIN_VERSION="3.7"
-LOG_FILE="/tmp/allinone-setup.log"
+LOG_FILE="/tmp/novasphere-setup.log"
 
 # =============================================================================
 # Utility Functions
@@ -35,9 +36,9 @@ LOG_FILE="/tmp/allinone-setup.log"
 
 print_header() {
     echo -e "${CYAN}"
-    echo "============================================================================="
-    echo "              All-in-One System Tools - Linux Setup Script"
-    echo "============================================================================="
+    echo "==================================================================================="
+    echo "       NovaSphere: All-in-One System Tools - Linux Setup Script"
+    echo "===================================================================================="
     echo -e "${NC}"
 }
 
@@ -268,7 +269,7 @@ create_directories() {
     mkdir -p "$INSTALL_DIR"
     mkdir -p "$BIN_DIR"
     mkdir -p "$DESKTOP_DIR"
-    mkdir -p "$HOME/.config/allinone-system-tools"
+    mkdir -p "$HOME/.config/novasphere"
     
     print_success "Directories created"
     log "Created directories: $INSTALL_DIR, $BIN_DIR, $DESKTOP_DIR"
@@ -278,12 +279,12 @@ create_directories() {
 copy_files() {
     print_section "Copying Application Files"
     
-    if [[ -d "$SCRIPT_DIR" && -f "$SCRIPT_DIR/main.py" ]]; then
-        cp -r "$SCRIPT_DIR"/* "$INSTALL_DIR/"
+    if [[ -d "$PROJECT_DIR" && -f "$PROJECT_DIR/main.py" ]]; then
+        cp -r "$PROJECT_DIR"/. "$INSTALL_DIR/"
         print_success "Application files copied to $INSTALL_DIR"
     else
-        print_error "Application files not found in $SCRIPT_DIR"
-        print_info "Please ensure you're running this script from the AllInOneSystemTools directory"
+        print_error "Application files not found in $PROJECT_DIR"
+        print_info "Please ensure the setup script is inside the NovaSphere project directory"
         exit 1
     fi
     
@@ -325,11 +326,11 @@ setup_python_env() {
 create_launcher() {
     print_section "Creating Launcher Script"
     
-    cat > "$BIN_DIR/allinone-tools" << 'EOF'
+    cat > "$BIN_DIR/nova" << 'EOF'
 #!/bin/bash
-# All-in-One System Tools Launcher
+# NovaSphere Launcher
 
-INSTALL_DIR="$HOME/.local/share/allinone-system-tools"
+INSTALL_DIR="$HOME/.local/share/novasphere"
 
 # Activate virtual environment and run the application
 source "$INSTALL_DIR/venv/bin/activate"
@@ -338,8 +339,8 @@ python main.py "$@"
 deactivate
 EOF
     
-    chmod +x "$BIN_DIR/allinone-tools"
-    print_success "Launcher script created at $BIN_DIR/allinone-tools"
+    chmod +x "$BIN_DIR/nova"
+    print_success "Launcher script created at $BIN_DIR/nova"
     log "Created launcher script"
 }
 
@@ -347,13 +348,13 @@ EOF
 create_desktop_entry() {
     print_section "Creating Desktop Entry"
     
-    cat > "$DESKTOP_DIR/allinone-system-tools.desktop" << EOF
+    cat > "$DESKTOP_DIR/novasphere.desktop" << EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=All-in-One System Tools
+Name=NovaSphere
 Comment=Comprehensive system diagnostic and monitoring tool suite
-Exec=$BIN_DIR/allinone-tools --gui
+Exec=$BIN_DIR/nova --gui
 Icon=utilities-system-monitor
 Terminal=false
 Categories=System;Monitor;Utility;
@@ -361,7 +362,7 @@ Keywords=system;monitor;diagnostic;battery;hardware;
 StartupNotify=true
 EOF
     
-    chmod +x "$DESKTOP_DIR/allinone-system-tools.desktop"
+    chmod +x "$DESKTOP_DIR/novasphere.desktop"
     print_success "Desktop entry created"
     log "Created desktop entry"
 }
@@ -375,7 +376,7 @@ update_path() {
         # Add to .bashrc
         if [[ -f "$HOME/.bashrc" ]]; then
             echo "" >> "$HOME/.bashrc"
-            echo "# Added by All-in-One System Tools installer" >> "$HOME/.bashrc"
+            echo "# Added by NovaSphere installer" >> "$HOME/.bashrc"
             echo "export PATH=\"\$PATH:$BIN_DIR\"" >> "$HOME/.bashrc"
             print_success "Added $BIN_DIR to PATH in ~/.bashrc"
         fi
@@ -383,7 +384,7 @@ update_path() {
         # Add to .zshrc if it exists
         if [[ -f "$HOME/.zshrc" ]]; then
             echo "" >> "$HOME/.zshrc"
-            echo "# Added by All-in-One System Tools installer" >> "$HOME/.zshrc"
+            echo "# Added by NovaSphere installer" >> "$HOME/.zshrc"
             echo "export PATH=\"\$PATH:$BIN_DIR\"" >> "$HOME/.zshrc"
             print_success "Added $BIN_DIR to PATH in ~/.zshrc"
         fi
@@ -443,23 +444,23 @@ create_uninstaller() {
     
     cat > "$INSTALL_DIR/uninstall.sh" << 'EOF'
 #!/bin/bash
-# All-in-One System Tools Uninstaller
+# NovaSphere Uninstaller
 
-echo "Uninstalling All-in-One System Tools..."
+echo "Uninstalling NovaSphere..."
 
 # Remove installation directory
-rm -rf "$HOME/.local/share/allinone-system-tools"
+rm -rf "$HOME/.local/share/novasphere"
 
 # Remove launcher
-rm -f "$HOME/.local/bin/allinone-tools"
+rm -f "$HOME/.local/bin/nova"
 
 # Remove desktop entry
-rm -f "$HOME/.local/share/applications/allinone-system-tools.desktop"
+rm -f "$HOME/.local/share/applications/novasphere.desktop"
 
 # Remove config directory
-rm -rf "$HOME/.config/allinone-system-tools"
+rm -rf "$HOME/.config/novasphere"
 
-echo "All-in-One System Tools has been uninstalled."
+echo "NovaSphere has been uninstalled."
 echo "Note: PATH entries in shell configuration files were not removed."
 EOF
     
@@ -472,14 +473,14 @@ EOF
 print_usage() {
     print_section "Installation Complete!"
     
-    echo -e "\n${GREEN}✓ All-in-One System Tools has been successfully installed!${NC}\n"
+    echo -e "\n${GREEN}✓ NovaSphere has been successfully installed!${NC}\n"
     
     echo -e "${WHITE}Usage:${NC}"
-    echo -e "  ${CYAN}allinone-tools${NC}                  # Launch CLI interface (default)"
-    echo -e "  ${CYAN}allinone-tools --cli${NC}            # Launch CLI interface"
-    echo -e "  ${CYAN}allinone-tools --gui${NC}            # Launch GUI interface"
-    echo -e "  ${CYAN}allinone-tools --web${NC}            # Launch web interface"
-    echo -e "  ${CYAN}allinone-tools --help${NC}           # Show help"
+    echo -e "  ${CYAN}nova${NC}                  # Launch CLI interface (default)"
+    echo -e "  ${CYAN}nova --cli${NC}            # Launch CLI interface"
+    echo -e "  ${CYAN}nova --gui${NC}            # Launch GUI interface"
+    echo -e "  ${CYAN}nova --web${NC}            # Launch web interface"
+    echo -e "  ${CYAN}nova --help${NC}           # Show help"
     
     echo -e "\n${WHITE}Available Tools:${NC}"
     echo -e "  🔋 ${YELLOW}Battery Monitor${NC}       - Real-time battery monitoring"
@@ -489,8 +490,8 @@ print_usage() {
     
     echo -e "\n${WHITE}Files:${NC}"
     echo -e "  Installation: ${CYAN}$INSTALL_DIR${NC}"
-    echo -e "  Configuration: ${CYAN}$HOME/.config/allinone-system-tools${NC}"
-    echo -e "  Launcher: ${CYAN}$BIN_DIR/allinone-tools${NC}"
+    echo -e "  Configuration: ${CYAN}$HOME/.config/novasphere${NC}"
+    echo -e "  Launcher: ${CYAN}$BIN_DIR/nova${NC}"
     echo -e "  Uninstaller: ${CYAN}$INSTALL_DIR/uninstall.sh${NC}"
     echo -e "  Log file: ${CYAN}$LOG_FILE${NC}"
     
@@ -500,8 +501,8 @@ print_usage() {
     echo -e "  • Desktop entry is available in applications menu"
     
     echo -e "\n${WHITE}Support:${NC}"
-    echo -e "  • Repository: ${CYAN}https://github.com/Srijan-XI/Z-TOOLS${NC}"
-    echo -e "  • Issues: ${CYAN}https://github.com/Srijan-XI/Z-TOOLS/issues${NC}"
+    echo -e "  • Repository: ${CYAN}https://github.com/Srijan-XI/NovaSphere${NC}"
+    echo -e "  • Issues: ${CYAN}https://github.com/Srijan-XI/NovaSphere/issues${NC}"
     
     echo ""
 }
@@ -514,7 +515,7 @@ main() {
     print_header
     
     # Start logging
-    log "Starting All-in-One System Tools installation"
+    log "Starting NovaSphere installation"
     log "Script directory: $SCRIPT_DIR"
     
     # Pre-installation checks
@@ -546,13 +547,13 @@ main() {
 # Handle command line arguments
 case "${1:-}" in
     --help|-h)
-        echo "All-in-One System Tools - Linux Setup Script"
+        echo "NovaSphere: All-in-One System Tools - Linux Setup Script"
         echo ""
         echo "Usage: $0 [OPTIONS]"
         echo ""
         echo "Options:"
         echo "  --help, -h    Show this help message"
-        echo "  --uninstall   Uninstall All-in-One System Tools"
+        echo "  --uninstall   Uninstall NovaSphere"
         echo ""
         echo "This script will:"
         echo "  • Install system dependencies"
@@ -564,10 +565,10 @@ case "${1:-}" in
         exit 0
         ;;
     --uninstall)
-        if [[ -f "$HOME/.local/share/allinone-system-tools/uninstall.sh" ]]; then
-            bash "$HOME/.local/share/allinone-system-tools/uninstall.sh"
+        if [[ -f "$HOME/.local/share/novasphere/uninstall.sh" ]]; then
+            bash "$HOME/.local/share/novasphere/uninstall.sh"
         else
-            print_error "Uninstaller not found. All-in-One System Tools may not be installed."
+            print_error "Uninstaller not found. NovaSphere may not be installed."
         fi
         exit 0
         ;;

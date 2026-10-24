@@ -12,7 +12,7 @@ from pathlib import Path
 
 def print_header():
     print("=" * 70)
-    print("  All-in-One System Tools - Installation Verification")
+    print("  NovaSphere - Installation Verification")
     print("=" * 70)
     print()
 
