@@ -65,11 +65,6 @@ class Config:
                     "history_length": 100,
                     "show_graphs": True
                 },
-                "packages": {
-                    "auto_update_check": True,
-                    "backup_before_update": True,
-                    "log_actions": True
-                }
             },
             "system": {
                 "log_level": "INFO",

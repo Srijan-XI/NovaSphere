@@ -144,7 +144,6 @@
             await testFileLoad('Battery JS', '/static/js/battery.js');
             await testFileLoad('Diagnostics JS', '/static/js/diagnostics.js');
             await testFileLoad('Monitoring JS', '/static/js/monitoring.js');
-            await testFileLoad('Packages JS', '/static/js/packages.js');
             
             await testCssLoad('Dashboard CSS', '/static/css/dashboard.css');
             await testCssLoad('Battery CSS', '/static/css/battery.css');
@@ -152,7 +151,6 @@
             // Test API endpoints
             await testApiEndpoint('Battery API', '/api/battery/info');
             await testApiEndpoint('Monitoring API', '/api/monitoring/metrics');
-            await testApiEndpoint('Package Count API', '/api/packages/count');
             
             // Test main page
             try {

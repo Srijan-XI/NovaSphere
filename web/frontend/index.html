@@ -6,13 +6,13 @@
     <title>NovaSphere</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="main.css" rel="stylesheet">
     <link href="static/css/dashboard.css" rel="stylesheet">
     <link href="static/css/battery.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#home">
                 <i class="fas fa-tools me-2"></i>NovaSphere
@@ -22,9 +22,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home"><i class="fas fa-home me-1"></i>Home</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#dashboard"><i class="fas fa-tachometer-alt me-1"></i>Dashboard</a>
                     </li>
@@ -36,9 +33,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#monitoring"><i class="fas fa-chart-line me-1"></i>Monitoring</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#packages"><i class="fas fa-box me-1"></i>Packages</a>
                     </li>
                 </ul>
             </div>
@@ -52,8 +46,9 @@
             <div class="container">
                 <div class="row justify-content-center text-center mb-5">
                     <div class="col-lg-8">
-                        <h1 class="display-4 fw-bold mb-4">NovaSphere</h1>
-                        <p class="lead mb-4">Comprehensive system monitoring, hardware diagnostics, and package management in one unified interface.</p>
+                        <span class="eyebrow mb-3 d-inline-flex align-items-center gap-2"><span class="live-dot"></span> SYSTEM OVERVIEW</span>
+                        <h1 class="display-4 fw-bold mb-4">Know your system.<br><span class="accent-text">At a glance.</span></h1>
+                        <p class="lead mb-4">A clear view of system health, hardware diagnostics, battery status, and live performance.</p>
                         <div class="d-flex justify-content-center gap-3">
                             <button class="btn btn-primary btn-lg" onclick="navigateToSection('dashboard')">
                                 <i class="fas fa-rocket me-2"></i>Get Started
@@ -66,7 +61,7 @@
                 </div>
 
                 <div class="row g-4 mb-5">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <div class="feature-card h-100" onclick="navigateToSection('battery')">
                             <div class="card-body text-center">
                                 <i class="fas fa-battery-half fa-3x text-success mb-3"></i>
@@ -75,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <div class="feature-card h-100" onclick="navigateToSection('diagnostics')">
                             <div class="card-body text-center">
                                 <i class="fas fa-stethoscope fa-3x text-info mb-3"></i>
@@ -84,21 +79,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-4">
                         <div class="feature-card h-100" onclick="navigateToSection('monitoring')">
                             <div class="card-body text-center">
                                 <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
                                 <h5 class="card-title">System Monitor</h5>
                                 <p class="card-text">Real-time system performance monitoring with interactive charts.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="feature-card h-100" onclick="navigateToSection('packages')">
-                            <div class="card-body text-center">
-                                <i class="fas fa-box fa-3x text-danger mb-3"></i>
-                                <h5 class="card-title">Package Manager</h5>
-                                <p class="card-text">Windows package management using winget with GUI interface.</p>
                             </div>
                         </div>
                     </div>
@@ -249,29 +235,6 @@
             </div>
         </section>
 
-        <!-- Packages Section -->
-        <section id="packages" class="section">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2><i class="fas fa-box me-2"></i>Package Manager</h2>
-                    <button class="btn btn-outline-danger" id="check-updates">
-                        <i class="fas fa-search"></i> Check Updates
-                    </button>
-                </div>
-                <div id="packages-content" class="content-area">
-                    <!-- Packages content will be loaded dynamically -->
-                    <div class="row g-4" id="packages-manager">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-center">
-                                <div class="spinner-border" role="status">
-                                    <span class="visually-hidden">Loading package manager...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Loading Modal -->
@@ -304,15 +267,14 @@
                                 <li><i class="fas fa-check text-success me-2"></i>Real-time system monitoring</li>
                                 <li><i class="fas fa-check text-success me-2"></i>Battery management and analysis</li>
                                 <li><i class="fas fa-check text-success me-2"></i>Hardware diagnostics suite</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Package management with winget</li>
                                 <li><i class="fas fa-check text-success me-2"></i>Cross-platform compatibility</li>
                             </ul>
                         </div>
                         <div class="col-md-6">
                             <h6><i class="fas fa-code me-2"></i>Technical Stack</h6>
                             <ul class="list-unstyled">
-                                <li><i class="fab fa-python me-2"></i>Python 3.7+</li>
-                                <li><i class="fas fa-flask me-2"></i>Flask Web Framework</li>
+                                <li><i class="fab fa-python me-2"></i>Python 3.8+</li>
+                                <li><i class="fas fa-bolt me-2"></i>FastAPI Web Framework</li>
                                 <li><i class="fab fa-bootstrap me-2"></i>Bootstrap 5</li>
                                 <li><i class="fab fa-js me-2"></i>JavaScript ES6+</li>
                                 <li><i class="fas fa-chart-bar me-2"></i>Chart.js</li>
@@ -359,6 +321,5 @@
     <script src="static/js/battery.js"></script>
     <script src="static/js/diagnostics.js"></script>
     <script src="static/js/monitoring.js"></script>
-    <script src="static/js/packages.js"></script>
 </body>
 </html>

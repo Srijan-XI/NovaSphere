@@ -2,7 +2,7 @@
 
 ## Overview
 
-The web interface provides a modern, responsive single-page application (SPA) for accessing all system tools through your web browser. Built with Flask, Bootstrap 5, and vanilla JavaScript, it offers real-time system monitoring, hardware diagnostics, battery management, and package management.
+The web interface provides a responsive single-page application for system monitoring, hardware diagnostics, and battery status. FastAPI serves the API and frontend assets using the shared NovaSphere core services.
 
 ## 📁 File Structure
 
@@ -11,8 +11,8 @@ interfaces/web/
 ├── index.html              # Main SPA entry point
 ├── main.css                # Primary stylesheet with modern design
 ├── app.js                  # Main JavaScript application logic
-├── standalone_server.py    # Standalone Flask server for testing
-├── web_interface.py        # Integrated Flask interface class
+├── standalone_server.py    # Compatibility launcher for FastAPI
+├── web_interface.py        # Integrated FastAPI interface class
 ├── templates/              # Individual page templates (legacy)
 │   ├── dashboard.html
 │   ├── battery.html
@@ -28,7 +28,6 @@ interfaces/web/
         ├── battery.js
         ├── diagnostics.js
         ├── monitoring.js
-        └── packages.js
 ```
 
 ## 🚀 Getting Started
@@ -38,7 +37,7 @@ interfaces/web/
 Install required Python packages:
 
 ```bash
-pip install flask flask-cors psutil
+pip install -r web/requirements.txt
 ```
 
 ### Method 1: Standalone Server (Recommended for Testing)
@@ -46,28 +45,28 @@ pip install flask flask-cors psutil
 The easiest way to run the web interface:
 
 ```bash
-cd NovaSphere/interfaces/web
-python standalone_server.py
+cd NovaSphere
+python -m web.backend.app --host 127.0.0.1 --port 8080
 ```
 
 This will:
-- ✅ Start the Flask server on http://127.0.0.1:5000
+- ✅ Start the FastAPI server on http://127.0.0.1:8080
 - ✅ Automatically open your default browser
 - ✅ Provide real system data where available
 - ✅ Use mock data for demonstration purposes
 
-### Method 2: Integrated with Main Application
+### Method 2: Use the Web Launcher
 
 ```bash
 cd NovaSphere
-python main.py --interface web --port 5000
+./web/webserver.sh
 ```
 
-### Method 3: Direct Flask Run
+### Method 3: Use the unified CLI
 
 ```bash
-cd NovaSphere/interfaces/web
-flask --app standalone_server run --host=127.0.0.1 --port=5000
+cd NovaSphere
+python -m novasphere --web --host 127.0.0.1 --port 8080
 ```
 
 ## 🎨 Features
@@ -102,12 +101,6 @@ flask --app standalone_server run --host=127.0.0.1 --port=5000
 - **Process Monitoring**: Detailed process information with resource usage
 - **Performance Metrics**: Comprehensive system performance data
 
-### 📦 Package Management
-- **Package Discovery**: Search and install new packages
-- **Update Management**: Check for and install updates
-- **Inventory Tracking**: List all installed packages
-- **Bulk Operations**: Upgrade all packages at once
-
 ## 🛠️ Technical Details
 
 ### Architecture
@@ -115,7 +108,7 @@ flask --app standalone_server run --host=127.0.0.1 --port=5000
 The web interface follows a modern SPA (Single Page Application) architecture:
 
 - **Frontend**: Pure JavaScript ES6+ with Bootstrap 5
-- **Backend**: Flask REST API with CORS support
+- **Backend**: FastAPI REST API with CORS support
 - **Data Layer**: Real-time system data via psutil
 - **Styling**: Custom CSS with CSS Grid and Flexbox
 - **Charts**: Chart.js for interactive visualizations
@@ -131,11 +124,6 @@ The web interface follows a modern SPA (Single Page Application) architecture:
   ```json
   {"test": "bluetooth|wifi|camera|microphone|speaker|keyboard"}
   ```
-
-#### Package Management
-- `GET /api/packages/status` - Check winget availability
-- `GET /api/packages/list` - List installed packages
-- `GET /api/packages/count` - Get package counts
 
 ### Real-time Updates
 
@@ -160,13 +148,6 @@ The interface supports real-time updates through:
 3. View live charts and metrics
 4. Export performance data
 
-### Managing Packages
-
-1. Access the package management section
-2. Search for new packages to install
-3. Check for available updates
-4. Perform bulk operations
-
 ## 🔧 Customization
 
 ### Styling
@@ -185,7 +166,7 @@ Extend `app.js` to add new features:
 
 ### Configuration
 
-Update the configuration in `standalone_server.py`:
+Update the web settings in the application configuration:
 ```python
 CONFIG = {
     'host': '127.0.0.1',    # Server host
@@ -207,7 +188,7 @@ CONFIG = {
 
 2. **Missing Dependencies**
    ```bash
-   pip install flask flask-cors psutil
+   pip install -r web/requirements.txt
    ```
 
 3. **Permission Issues**

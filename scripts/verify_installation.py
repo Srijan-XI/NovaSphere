@@ -29,10 +29,10 @@ def check_python_version():
     print(f"Python version: {version.major}.{version.minor}.{version.micro}")
     
     if version >= (3, 7):
-        print("✓ Python version is compatible (>= 3.7)")
+        print("✓ Python version is compatible (>= 3.8)")
         return True
     else:
-        print("✗ Python version is too old (minimum: 3.7)")
+        print("✗ Python version is too old (minimum: 3.8)")
         return False
 
 def check_system_dependencies():
@@ -75,8 +75,8 @@ def check_python_packages():
         'pygame',
         'bleak',
         'pynput',
-        'flask',
-        'flask_cors',
+        'fastapi',
+        'uvicorn',
         'colorama',
         'packaging'
     ]

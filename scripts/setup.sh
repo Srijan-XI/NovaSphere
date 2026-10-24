@@ -27,7 +27,7 @@ PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 INSTALL_DIR="$HOME/.local/share/novasphere"
 BIN_DIR="$HOME/.local/bin"
 DESKTOP_DIR="$HOME/.local/share/applications"
-PYTHON_MIN_VERSION="3.7"
+PYTHON_MIN_VERSION="3.8"
 LOG_FILE="/tmp/novasphere-setup.log"
 
 # =============================================================================
@@ -114,7 +114,7 @@ check_python() {
         fi
     else
         print_error "Python 3 is not installed!"
-        print_info "Please install Python 3.7+ and try again"
+        print_info "Please install Python 3.8+ and try again"
         exit 1
     fi
     
@@ -249,7 +249,7 @@ install_system_deps() {
             ;;
         *)
             print_warning "Unknown distribution. You may need to install dependencies manually:"
-            print_info "  - Python 3.7+ development headers"
+            print_info "  - Python 3.8+ development headers"
             print_info "  - Build tools (gcc, make)"
             print_info "  - PortAudio development libraries"
             print_info "  - ALSA development libraries"
@@ -486,7 +486,6 @@ print_usage() {
     echo -e "  🔋 ${YELLOW}Battery Monitor${NC}       - Real-time battery monitoring"
     echo -e "  🔧 ${YELLOW}Hardware Diagnostics${NC}  - Test cameras, microphones, speakers, etc."
     echo -e "  📊 ${YELLOW}System Monitor${NC}        - CPU, memory, disk, network monitoring"
-    echo -e "  📦 ${YELLOW}Package Manager${NC}       - System package management"
     
     echo -e "\n${WHITE}Files:${NC}"
     echo -e "  Installation: ${CYAN}$INSTALL_DIR${NC}"

@@ -10,16 +10,14 @@ readme = "README.md"
 authors = [
     {name = "Srijan-XI"}
 ]
-license = {text = "MIT"}
-requires-python = ">=3.7"
+license = "MIT"
+requires-python = ">=3.8"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: System Administrators",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -34,8 +32,8 @@ keywords = ["system", "monitoring", "diagnostics", "battery", "performance"]
 
 dependencies = [
     "psutil>=5.9.0",
-    "Flask>=2.3.0",
-    "Flask-CORS>=4.0.0",
+    "fastapi>=0.95.0",
+    "uvicorn>=0.21.0",
     "colorama>=0.4.6",
 ]
 
@@ -125,7 +123,7 @@ skip_covered = false
 
 [tool.black]
 line-length = 100
-target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
+target-version = ['py38', 'py39', 'py310', 'py311']
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -138,7 +136,7 @@ exclude = '''
 '''
 
 [tool.mypy]
-python_version = "3.7"
+python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false

@@ -22,7 +22,9 @@ function initializeApp() {
     console.log('Initializing NovaSphere...');
     
     // Initialize Bootstrap components
-    loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    if (window.bootstrap?.Modal && document.getElementById('loadingModal')) {
+        loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    }
     
     // Set up navigation
     setupNavigation();
@@ -87,7 +89,6 @@ function setupEventListeners() {
     document.getElementById('run-all-tests')?.addEventListener('click', () => runAllDiagnostics());
     document.getElementById('toggle-monitoring')?.addEventListener('click', () => toggleMonitoring());
     document.getElementById('export-metrics')?.addEventListener('click', () => exportMetrics());
-    document.getElementById('check-updates')?.addEventListener('click', () => checkPackageUpdates());
 }
 
 /**
@@ -146,9 +147,6 @@ function loadSectionContent(sectionId) {
         case 'monitoring':
             loadMonitoringContent();
             break;
-        case 'packages':
-            loadPackagesContent();
-            break;
         case 'home':
             // Home content is static, just update system status
             loadSystemStatus();
@@ -163,19 +161,19 @@ async function loadSystemStatus() {
     try {
         // Load basic system metrics
         const response = await fetch('/api/monitoring/metrics');
-        if (response.ok) {
-            const data = await response.json();
-            updateSystemStatus(data);
-        }
+        if (!response.ok) throw new Error(`Metrics request failed (${response.status})`);
+        updateSystemStatus(await response.json());
         
         // Load battery status
         const batteryResponse = await fetch('/api/battery/info');
-        if (batteryResponse.ok) {
-            const batteryData = await batteryResponse.json();
-            updateBatteryStatus(batteryData);
-        }
+        if (!batteryResponse.ok) throw new Error(`Battery request failed (${batteryResponse.status})`);
+        updateBatteryStatus(await batteryResponse.json());
     } catch (error) {
         console.error('Error loading system status:', error);
+        ['cpu-status', 'memory-status', 'disk-status', 'battery-status'].forEach((id) => {
+            const element = document.getElementById(id);
+            if (element && element.textContent === 'Loading...') element.textContent = 'Unavailable';
+        });
     }
 }
 
@@ -361,6 +359,7 @@ async function loadDashboardData() {
         
     } catch (error) {
         console.error('Error loading dashboard data:', error);
+        throw error;
     }
 }
 
@@ -716,6 +715,19 @@ function loadDiagnosticsContent() {
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-hover">
+                <div class="card-body text-center">
+                    <i class="fas fa-mouse fa-3x text-secondary mb-3"></i>
+                    <h5>Mouse Test</h5>
+                    <p class="text-muted">Test mouse interface access</p>
+                    <button class="btn btn-outline-secondary" onclick="runSingleTest('mouse')">
+                        <i class="fas fa-play me-1"></i>Run Test
+                    </button>
+                    <div id="mouse-result" class="mt-2"></div>
+                </div>
+            </div>
+        </div>
         <div class="col-12 mt-4">
             <div class="card">
                 <div class="card-header">
@@ -779,19 +791,19 @@ async function runDiagnostic(testName) {
  * Run all diagnostic tests
  */
 async function runAllDiagnostics() {
-    const tests = ['bluetooth', 'wifi', 'camera', 'microphone', 'speaker', 'keyboard'];
-    showLoading('Running all diagnostic tests...');
+    const tests = ['bluetooth', 'wifi', 'camera', 'microphone', 'speaker', 'keyboard', 'mouse'];
+    const progress = document.getElementById('test-progress');
+    if (progress) progress.style.display = 'block';
     
     try {
         for (const test of tests) {
-            await runDiagnostic(test);
-            // Small delay between tests
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await runSingleTest(test, false);
         }
+        updateTestSummary();
     } catch (error) {
         console.error('Error running all diagnostics:', error);
     } finally {
-        hideLoading();
+        if (progress) progress.style.display = 'none';
     }
 }
 
@@ -810,19 +822,6 @@ function loadMonitoringContent() {
 }
 
 /**
- * Load packages content
- */
-function loadPackagesContent() {
-    const contentDiv = document.getElementById('packages-content');
-    
-    contentDiv.innerHTML = `
-        <div class="content-area">
-            <p class="text-muted">Package management interface will be displayed here.</p>
-            <p>This feature integrates with the existing winget package manager.</p>
-        </div>
-    `;
-}
-
 /**
  * Toggle system monitoring
  */
@@ -860,17 +859,6 @@ function exportMetrics() {
 }
 
 /**
- * Check for package updates
- */
-function checkPackageUpdates() {
-    showLoading('Checking for package updates...');
-    // This would integrate with the package management system
-    setTimeout(() => {
-        hideLoading();
-        showNotification('Package update check completed', 'info');
-    }, 2000);
-}
-
 /**
  * Show about modal
  */
@@ -884,15 +872,16 @@ function showAbout() {
  * @param {string} message - Loading message
  */
 function showLoading(message = 'Loading...') {
-    document.getElementById('loading-message').textContent = message;
-    loadingModal.show();
+    const messageElement = document.getElementById('loading-message');
+    if (messageElement) messageElement.textContent = message;
+    loadingModal?.show();
 }
 
 /**
  * Hide loading modal
  */
 function hideLoading() {
-    loadingModal.hide();
+    loadingModal?.hide();
 }
 
 /**

@@ -18,7 +18,6 @@ The NovaSphere project aims to combine existing standalone utilities into a comp
 - Battery monitoring and charging analysis
 - Hardware component diagnostics
 - System performance monitoring
-- Package management capabilities
 - Multi-interface accessibility (Command Line, Desktop GUI, Web Browser)
 
 ### 1.3 Document Conventions
@@ -90,7 +89,7 @@ The NovaSphere project aims to combine existing standalone utilities into a comp
 - **Skills**: Python, Web Technologies, System Programming (already demonstrated)
 
 #### 3.2.2 **System Requirements**
-- **Minimal**: Python 3.7+, 100MB disk space, 256MB RAM
+- **Minimal**: Python 3.8+, 100MB disk space, 256MB RAM
 - **Dependencies**: All existing dependencies are lightweight and well-maintained
 
 ### 3.3 Market Feasibility ✅ **HIGH**
@@ -174,7 +173,6 @@ core/
 ├── battery/           # Battery monitoring logic
 ├── diagnostics/       # Hardware diagnostic functions
 ├── monitoring/        # System monitoring utilities
-├── package_mgmt/      # Package management functions
 └── common/           # Shared utilities and interfaces
 ```
 
@@ -238,13 +236,6 @@ config.json
 - Disk space analysis
 - Network interface monitoring
 
-#### 5.1.4 **Package Management** (Windows)
-- List installed packages
-- Check for available updates
-- Install/uninstall applications
-- Source repository management
-- Action logging and history
-
 ### 5.2 Interface Requirements
 
 #### 5.2.1 **CLI Interface**
@@ -291,7 +282,7 @@ config.json
 
 ### 6.4 Compatibility Requirements
 - **Operating Systems**: Windows 10+, Ubuntu 18.04+, macOS 10.14+
-- **Python Version**: 3.7+
+- **Python Version**: 3.8+
 - **Architecture**: x86_64, ARM64 support
 - **Dependencies**: Minimal external dependencies
 

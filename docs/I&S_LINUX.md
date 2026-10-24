@@ -61,7 +61,7 @@ source ~/.bashrc
 
 ### Minimum Requirements
 - OS: Linux (any modern distribution)
-- Python: 3.7 or higher
+- Python: 3.8 or higher
 - RAM: 512 MB
 - Storage: 200 MB free space
 - Architecture: x86_64, ARM64
@@ -141,7 +141,6 @@ nova --cli              # Explicit CLI mode
 nova battery            # Direct battery monitoring
 nova diagnostics        # Hardware diagnostics
 nova monitor            # System monitoring
-nova packages           # Package management
 ```
 
 ### Web Interface

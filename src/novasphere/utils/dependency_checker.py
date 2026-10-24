@@ -13,8 +13,8 @@ class DependencyChecker:
     
     REQUIRED_PACKAGES = {
         'psutil': 'psutil>=5.9.0',
-        'flask': 'Flask>=2.3.0',
-        'flask_cors': 'Flask-CORS>=4.0.0',
+        'fastapi': 'fastapi>=0.95.0',
+        'uvicorn': 'uvicorn>=0.21.0',
         'colorama': 'colorama>=0.4.6',
     }
     
@@ -51,8 +51,8 @@ class DependencyChecker:
     
     def _check_python_version(self) -> None:
         """Check if Python version meets requirements"""
-        if sys.version_info < (3, 7):
-            print("⚠️  Warning: Python 3.7+ is required")
+        if sys.version_info < (3, 8):
+            print("⚠️  Warning: Python 3.8+ is required")
             print(f"   Current version: {sys.version}")
     
     def _check_packages(self) -> None:

@@ -4,8 +4,10 @@ let isAutoRefreshEnabled = false;
 
 // Initialize battery monitor
 document.addEventListener('DOMContentLoaded', function() {
-    refreshBatteryInfo();
-    loadSettings();
+    if (document.getElementById('battery-percentage')) {
+        refreshBatteryInfo();
+        loadSettings();
+    }
 });
 
 // Refresh battery information
@@ -28,10 +30,11 @@ async function refreshBatteryInfo() {
 
 // Update battery display
 function updateBatteryDisplay(data) {
+    const batteryPercent = data.battery_percent ?? data.percentage ?? 0;
     // Update percentage
     const percentageElement = document.getElementById('battery-percentage');
     if (percentageElement) {
-        percentageElement.textContent = `${data.battery_percent}%`;
+        percentageElement.textContent = `${batteryPercent}%`;
     }
     
     // Update status
@@ -49,18 +52,18 @@ function updateBatteryDisplay(data) {
     // Update battery icon
     const iconElement = document.getElementById('battery-icon');
     if (iconElement) {
-        iconElement.className = getBatteryIconClass(data.battery_percent, data.power_plugged);
+        iconElement.className = getBatteryIconClass(batteryPercent, data.power_plugged);
     }
     
     // Update progress bar
     const progressElement = document.getElementById('battery-progress');
     if (progressElement) {
-        progressElement.style.width = `${data.battery_percent}%`;
-        progressElement.setAttribute('aria-valuenow', data.battery_percent);
-        progressElement.textContent = `${data.battery_percent}%`;
+        progressElement.style.width = `${batteryPercent}%`;
+        progressElement.setAttribute('aria-valuenow', batteryPercent);
+        progressElement.textContent = `${batteryPercent}%`;
         
         // Update progress bar color
-        progressElement.className = 'progress-bar ' + getProgressBarClass(data.battery_percent);
+        progressElement.className = 'progress-bar ' + getProgressBarClass(batteryPercent);
     }
     
     // Update charging status
@@ -79,6 +82,7 @@ function updateBatteryDisplay(data) {
 // Update charging information
 function updateChargingInfo(data) {
     const chargingInfoDiv = document.getElementById('charging-info');
+    if (!chargingInfoDiv) return;
     
     if (data.power_plugged) {
         chargingInfoDiv.style.display = 'block';
@@ -102,6 +106,7 @@ function updateChargingInfo(data) {
 // Check battery alerts
 function checkBatteryAlerts(data) {
     const alertsDiv = document.getElementById('battery-alerts');
+    if (!alertsDiv) return;
     let alerts = [];
     
     if (data.battery_percent <= 10) {
@@ -225,6 +230,9 @@ function formatTime(hours) {
 // Show error message
 function showError(message) {
     const alertsDiv = document.getElementById('battery-alerts');
+    const statusElement = document.getElementById('battery-status');
+    if (statusElement) statusElement.textContent = 'Unavailable';
+    if (!alertsDiv) return;
     alertsDiv.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <i class="fas fa-exclamation-circle"></i> ${message}

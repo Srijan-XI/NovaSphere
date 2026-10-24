@@ -2,11 +2,11 @@
 
 > All-in-One System Diagnostic & Monitoring Suite
 
-NovaSphere is an all-in-One System Diagnostic & Monitoring Suite which comprehensive unified system diagnostic and monitoring tool suite that combines battery monitoring, hardware diagnostics, system monitoring, and package management into a single application with multiple interface options.
+NovaSphere is an all-in-One System Diagnostic & Monitoring Suite which comprehensive unified system diagnostic and monitoring tool suite that combines battery monitoring, hardware diagnostics, and system monitoring into a single application with multiple interface options.
 
 ![Version](https://img.shields.io/badge/version-2.0-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux-green.svg)
-![Python](https://img.shields.io/badge/python-3.7+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![Coverage](https://img.shields.io/badge/coverage-75%25-yellow.svg)
@@ -55,7 +55,6 @@ python main.py --cli
 - **🔋 Battery Monitor**: Real-time monitoring with charging analysis and time estimation
 - **🔧 Hardware Diagnostics**: Comprehensive testing of cameras, microphones, speakers, bluetooth, etc.
 - **📊 System Monitor**: CPU, memory, disk, network, and temperature monitoring with real-time dashboard
-- **📦 Package Manager**: Windows package management via winget with install/update/remove capabilities
 - **🎯 Multiple Interfaces**: CLI (ready), Web (ready), GUI (planned)
 - **⚙️ Configurable**: JSON-based configuration system with per-tool customization
 - **📝 Advanced Logging**: Comprehensive logging with colored output and file rotation
@@ -138,7 +137,6 @@ python main.py --cli
 nova --cli battery      # Battery monitoring
 nova --cli diagnostics  # Hardware diagnostics
 nova --cli monitoring   # System monitoring
-nova --cli packages     # Package management
 
 # Web interface
 nova --web              # Launch web interface
@@ -176,7 +174,6 @@ NovaSphere/
 │   │   ├── battery/         # Battery monitoring
 │   │   ├── diagnostics/     # Hardware diagnostics
 │   │   ├── monitoring/      # System monitoring
-│   │   └── package_mgmt/    # Package management
 │   │
 │   ├── utils/           # Shared utilities (formerly common/)
 │   │   ├── config.py        # Configuration management
@@ -256,19 +253,11 @@ NovaSphere/
 - **Process Management**: Top CPU and memory consumers with detailed process information
 - **Real-time Dashboard**: Live updating metrics with historical charts
 
-### 📦 Package Manager (Windows Only)
-- **Package Listing**: Display all installed applications with version information
-- **Update Management**: Check for and install available updates
-- **Installation/Removal**: Install new packages or remove existing ones
-- **Source Management**: Manage winget sources and repositories
-- **Operation Logging**: Detailed history of all package operations
-- **Batch Operations**: Multiple package operations with progress tracking
-
 ## 📋 System Requirements
 
 ### Minimum Requirements
 - **OS**: Windows 10+ or Linux (any modern distribution)
-- **Python**: 3.7 or higher
+- **Python**: 3.8 or higher
 - **RAM**: 512MB available memory
 - **Storage**: 200MB free disk space
 - **Architecture**: x86_64, ARM64
@@ -282,7 +271,6 @@ NovaSphere/
 ### Platform-Specific Requirements
 
 #### Windows
-- **Winget**: For package management functionality
 - **OpenHardwareMonitor**: For enhanced temperature monitoring (optional)
 - **Visual C++ Redistributable**: For some Python packages
 
@@ -344,11 +332,6 @@ Customize the application behavior using the JSON configuration file (`config.js
       "history_length": 100,
       "cpu_alert_threshold": 80,
       "memory_alert_threshold": 85
-    },
-    "packages": {
-      "winget_source": "winget",
-      "auto_update_check": true,
-      "confirm_operations": true
     }
   }
 }
@@ -363,7 +346,6 @@ nova                    # Interactive menu
 nova --cli battery      # Direct tool access
 nova --cli diagnostics
 nova --cli monitoring  
-nova --cli packages
 
 # With options
 nova --config custom_config.json
@@ -438,7 +420,7 @@ Tested on various systems to ensure optimal performance:
 - **Memory Usage**: ~20-50MB RAM (depending on active tools)
 - **CPU Usage**: <1% during idle, 2-5% during active monitoring
 - **Disk Usage**: ~200MB total installation size
-- **Network**: Minimal (only for package management and updates)
+- **Network**: Minimal
 
 ### Performance Optimizations
 - **Lazy Loading**: Tools are loaded only when needed
@@ -469,7 +451,7 @@ Tested on various systems to ensure optimal performance:
 
 ### v1.x (Legacy) - 2024-2025
 - 📦 **Unified Application**: Combined all tools into single application
-- 🔋 **All-in-One Architecture**: Integrated battery, diagnostics, monitoring, packages
+- 🔋 **All-in-One Architecture**: Integrated battery, diagnostics, and monitoring
 - 🌐 **Web Interface**: Full-featured web interface with real-time monitoring
 - 🐧 **Linux Support**: Automated installation script for major distributions
 - ⚙️ **Configuration System**: JSON-based configuration with validation
@@ -480,7 +462,6 @@ Tested on various systems to ensure optimal performance:
 - 🔋 **Battery Monitor**: CLI, GUI, and web versions
 - 🔧 **Device Diagnostics**: Hardware testing tools
 - 📊 **System Monitor**: Platform-specific monitoring
-- 📦 **Package Manager**: Windows-only winget interface
 
 ### Upgrade Path
 Migrating from v1.x to v2.0:
@@ -506,7 +487,6 @@ Migrating from v1.x to v2.0:
 - [x] **Battery Monitoring**: Real-time monitoring with charging analysis
 - [x] **Hardware Diagnostics**: Comprehensive testing suite for all major components
 - [x] **System Monitoring**: Real-time system metrics with historical data
-- [x] **Package Management**: Windows package management via winget
 - [x] **Performance Monitoring**: Resource tracking and metrics
 - [x] **Notifications**: System notifications for important events
 - [x] **Report Export**: Export reports in JSON, CSV, HTML formats

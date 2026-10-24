@@ -1,18 +1,18 @@
-/* NovaSphere - Main CSS */
+/* NovaSphere modern dashboard theme */
 
 /* Root Variables */
 :root {
-    --primary-color: #0d6efd;
-    --secondary-color: #6c757d;
-    --success-color: #198754;
-    --info-color: #0dcaf0;
-    --warning-color: #ffc107;
-    --danger-color: #dc3545;
-    --light-color: #f8f9fa;
-    --dark-color: #212529;
-    --border-radius: 12px;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
+    --primary-color: #27d3bd;
+    --secondary-color: #94a3b8;
+    --success-color: #43d19e;
+    --info-color: #54b8f4;
+    --warning-color: #f3b84b;
+    --danger-color: #f27575;
+    --light-color: #e8eef7;
+    --dark-color: #101722;
+    --border-radius: 18px;
+    --box-shadow: 0 16px 40px rgba(0, 0, 0, .2);
+    --transition: all .22s ease;
 }
 
 /* Global Styles */
@@ -21,12 +21,43 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
     line-height: 1.6;
-    color: var(--dark-color);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #e7edf6;
+    background: radial-gradient(ellipse at 15% 0%, rgba(39, 211, 189, .12), transparent 34%), #101722;
     min-height: 100vh;
 }
+
+.navbar { background: rgba(16, 23, 34, .86) !important; border-bottom: 1px solid rgba(148, 163, 184, .14); backdrop-filter: blur(18px); }
+.navbar-brand { letter-spacing: -.03em; }
+.navbar-brand i { color: var(--primary-color); }
+.nav-link { color: #aebbd0 !important; border-radius: 10px; margin-left: .25rem; }
+.nav-link:hover, .nav-link.active { color: #f8fafc !important; background: rgba(39, 211, 189, .12); }
+h1, h2, h3, h4, h5, h6 { color: #f2f6fc; letter-spacing: -.025em; }
+.lead, .text-muted { color: #9aa9bd !important; }
+.section { padding-top: 2.5rem; }
+.feature-card, .card, .system-status-card, .content-area { color: #e7edf6; background: #192332; border: 1px solid rgba(148, 163, 184, .13); border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+.card-header, .card-footer { background: rgba(255,255,255,.025); border-color: rgba(148, 163, 184, .12); }
+.feature-card { cursor: pointer; transition: var(--transition); }
+.feature-card:hover { transform: translateY(-5px); border-color: rgba(39, 211, 189, .5); }
+.btn-primary { --bs-btn-bg: #20bba8; --bs-btn-border-color: #20bba8; --bs-btn-hover-bg: #179d8e; --bs-btn-hover-border-color: #179d8e; color: #081b1c; font-weight: 650; }
+.btn-outline-primary { --bs-btn-color: #43d9c5; --bs-btn-border-color: #278e86; --bs-btn-hover-bg: #20bba8; --bs-btn-hover-border-color: #20bba8; }
+.progress { background: #0e1621; }
+.form-control, .form-select { color: #e7edf6; background-color: #101722; border-color: #344154; }
+.form-control:focus, .form-select:focus { color: #fff; background-color: #101722; border-color: #27d3bd; box-shadow: 0 0 0 .2rem rgba(39, 211, 189, .15); }
+footer { background: transparent !important; border-top: 1px solid rgba(148, 163, 184, .12); color: #8796aa !important; }
+.diagnostic-details { max-height: 180px; overflow: auto; padding: .8rem; border-radius: 12px; color: #bdc9d8; background: #101722; white-space: pre-wrap; overflow-wrap: anywhere; }
+.eyebrow { color: #7c91a9; font-size: .76rem; font-weight: 750; letter-spacing: .16em; }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary-color); box-shadow: 0 0 14px rgba(39, 211, 189, .8); }
+.accent-text { color: var(--primary-color); }
+.section > .container > .row:first-child { padding-top: 1rem; }
+.system-status-card { overflow: hidden; }
+.system-status-card .card-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(148, 163, 184, .12); }
+.system-status-card .card-body { padding: 1.6rem; }
+.status-item { padding: 1.2rem .75rem; }
+.modal-content { color: #e7edf6; background: #192332; border: 1px solid rgba(148, 163, 184, .16); border-radius: var(--border-radius); }
+.btn-outline-secondary { --bs-btn-color: #b7c3d2; --bs-btn-border-color: #435064; --bs-btn-hover-bg: #344154; --bs-btn-hover-border-color: #435064; }
+@media (max-width: 768px) { .section { padding-top: 1rem; } .display-4 { font-size: 2.4rem; } .navbar-nav { padding-top: .7rem; } }
 
 /* Navigation */
 .navbar {
@@ -489,3 +520,15 @@ footer {
     background-clip: text;
     font-weight: bold;
 }
+
+/* Final theme overrides for legacy component rules above. */
+body { color: #e7edf6; background: radial-gradient(ellipse at 15% 0%, rgba(39, 211, 189, .12), transparent 34%), #101722; }
+main { color: #e7edf6; background: transparent; border-radius: 0; margin: 0 auto; max-width: 1440px; box-shadow: none; }
+.feature-card, .card, .system-status-card, .content-area { color: #e7edf6; background: #192332; border: 1px solid rgba(148, 163, 184, .13); border-radius: var(--border-radius); }
+.feature-card { background: #192332; }
+.card-header, .card-footer { color: #e7edf6; background: rgba(255,255,255,.025); border-color: rgba(148, 163, 184, .12); }
+.section { padding-top: 1rem; }
+.text-muted { color: #9aa9bd !important; }
+.navbar { background: rgba(16, 23, 34, .86) !important; }
+.nav-link.active { background-color: rgba(39, 211, 189, .12); }
+.modal-content { color: #e7edf6; background: #192332; }

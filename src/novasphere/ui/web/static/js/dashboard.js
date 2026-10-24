@@ -31,12 +31,6 @@ async function loadSystemInfo() {
             updateSystemMetrics(monitoringData);
         }
         
-        // Load package count
-        const packagesResponse = await fetch('/api/packages/count');
-        if (packagesResponse.ok) {
-            const packagesData = await packagesResponse.json();
-            updatePackageCount(packagesData);
-        }
         
     } catch (error) {
         console.error('Error loading system info:', error);
@@ -92,20 +86,6 @@ function updateSystemMetrics(data) {
             <span class="status-indicator ${isConnected ? 'status-online' : 'status-offline'}"></span>
             ${isConnected ? 'Connected' : 'Disconnected'}
         `;
-    }
-}
-
-// Update package count
-function updatePackageCount(data) {
-    const packageCount = document.getElementById('package-count');
-    if (packageCount && data.installed_count !== undefined) {
-        packageCount.textContent = data.installed_count;
-    }
-    
-    const upgradeCount = document.getElementById('upgrade-count');
-    if (upgradeCount && data.upgradable_count !== undefined) {
-        upgradeCount.textContent = data.upgradable_count;
-        upgradeCount.className = data.upgradable_count > 0 ? 'text-warning' : 'text-success';
     }
 }
 

@@ -8,7 +8,6 @@ Features:
 - Battery monitoring and analysis
 - Hardware diagnostics
 - System performance monitoring
-- Package management (Windows)
 - Web, GUI, and CLI interfaces
 - Performance graphs and metrics
 - Desktop notifications

@@ -11,7 +11,6 @@ from novasphere.utils.log_store import LogDataStore
 from novasphere.core.battery.battery_monitor import create_battery_monitor
 from novasphere.core.diagnostics.hardware_tests import create_diagnostics
 from novasphere.core.monitoring.system_monitor import create_system_monitor
-from novasphere.core.package_mgmt.winget_manager import create_package_manager
 from novasphere.utils.utils import create_progress_bar, format_duration
 
 class CLIInterface:
@@ -47,14 +46,13 @@ class CLIInterface:
             print("  1. Battery Monitor")
             print("  2. Hardware Diagnostics")
             print("  3. System Monitor")
-            print("  4. Package Manager (Windows)")
-            print("  5. System Summary")
+            print("  4. System Summary")
             print()
             print("  0. Exit")
             print()
             
             try:
-                choice = input("Select a tool (0-5): ").strip()
+                choice = input("Select a tool (0-4): ").strip()
                 
                 if choice == '0':
                     self._running = False
@@ -66,8 +64,6 @@ class CLIInterface:
                 elif choice == '3':
                     self._run_system_monitor()
                 elif choice == '4':
-                    self._run_package_manager()
-                elif choice == '5':
                     self._show_system_summary()
                 else:
                     print("Invalid choice. Please try again.")
@@ -86,14 +82,13 @@ class CLIInterface:
             'battery': self._run_battery_monitor,
             'diagnostics': self._run_diagnostics,
             'monitoring': self._run_system_monitor,
-            'packages': self._run_package_manager
         }
         
         if tool_name in tool_methods:
             tool_methods[tool_name]()
         else:
             print(f"Unknown tool: {tool_name}")
-            print("Available tools: battery, diagnostics, monitoring, packages")
+            print("Available tools: battery, diagnostics, monitoring")
     
     def _run_battery_monitor(self):
         """Run battery monitoring tool"""
@@ -462,176 +457,6 @@ class CLIInterface:
             print("\nTop Memory Consumers:")
             for proc in proc_info['memory_intensive'][:10]:
                 print(f"  {proc['name']} (PID: {proc['pid']}): {proc['memory_rss_formatted']} ({proc['memory_percent']:.1f}%)")
-    
-    def _run_package_manager(self):
-        """Run package manager"""
-        self._clear_screen()
-        print("=" * 60)
-        print("               PACKAGE MANAGER")
-        print("=" * 60)
-        
-        manager = create_package_manager()
-        
-        if not manager.is_available():
-            print("\nWinget is not available on this system.")
-            print("Package management is only supported on Windows with winget installed.")
-            input("Press Enter to continue...")
-            return
-        
-        while True:
-            print("\n1. List Installed Packages")
-            print("2. List Upgradable Packages")
-            print("3. Search Packages")
-            print("4. Install Package")
-            print("5. Uninstall Package")
-            print("6. Upgrade Package")
-            print("7. Upgrade All Packages")
-            print("8. Back to Main Menu")
-            print()
-            
-            choice = input("Select option (1-8): ").strip()
-            
-            if choice == '1':
-                self._list_installed_packages(manager)
-            elif choice == '2':
-                self._list_upgradable_packages(manager)
-            elif choice == '3':
-                self._search_packages(manager)
-            elif choice == '4':
-                self._install_package(manager)
-            elif choice == '5':
-                self._uninstall_package(manager)
-            elif choice == '6':
-                self._upgrade_package(manager)
-            elif choice == '7':
-                self._upgrade_all_packages(manager)
-            elif choice == '8':
-                break
-            else:
-                print("Invalid choice.")
-    
-    def _list_installed_packages(self, manager):
-        """List installed packages"""
-        print("\nFetching installed packages...")
-        packages = manager.get_installed_packages()
-        
-        if packages:
-            print(f"\nInstalled Packages ({len(packages)}):")
-            print("-" * 60)
-            for pkg in packages[:20]:  # Show first 20
-                print(f"{pkg.name} ({pkg.id}) - v{pkg.version}")
-            
-            if len(packages) > 20:
-                print(f"... and {len(packages) - 20} more packages")
-        else:
-            print("No packages found or failed to retrieve package list.")
-        
-        input("\nPress Enter to continue...")
-    
-    def _list_upgradable_packages(self, manager):
-        """List upgradable packages"""
-        print("\nChecking for upgradable packages...")
-        packages = manager.get_upgradable_packages()
-        
-        if packages:
-            print(f"\nUpgradable Packages ({len(packages)}):")
-            print("-" * 60)
-            for pkg in packages:
-                print(f"{pkg.name} ({pkg.id})")
-                print(f"  Current: v{pkg.version} → Available: v{pkg.available_version}")
-                print()
-        else:
-            print("No upgrades available or failed to check for updates.")
-        
-        input("\nPress Enter to continue...")
-    
-    def _search_packages(self, manager):
-        """Search for packages"""
-        query = input("\nEnter search query: ").strip()
-        if not query:
-            return
-        
-        print(f"Searching for '{query}'...")
-        packages = manager.search_packages(query, 10)
-        
-        if packages:
-            print(f"\nSearch Results ({len(packages)}):")
-            print("-" * 60)
-            for pkg in packages:
-                print(f"{pkg.name} ({pkg.id}) - v{pkg.version}")
-        else:
-            print("No packages found.")
-        
-        input("\nPress Enter to continue...")
-    
-    def _install_package(self, manager):
-        """Install a package"""
-        package_id = input("\nEnter package ID to install: ").strip()
-        if not package_id:
-            return
-        
-        print(f"Installing {package_id}...")
-        result = manager.install_package(package_id)
-        
-        if result.success:
-            print(f"✓ Successfully installed {package_id}")
-        else:
-            print(f"✗ Failed to install {package_id}: {result.message}")
-        
-        input("\nPress Enter to continue...")
-    
-    def _uninstall_package(self, manager):
-        """Uninstall a package"""
-        package_id = input("\nEnter package ID to uninstall: ").strip()
-        if not package_id:
-            return
-        
-        confirm = input(f"Are you sure you want to uninstall {package_id}? (y/N): ").strip().lower()
-        if confirm != 'y':
-            return
-        
-        print(f"Uninstalling {package_id}...")
-        result = manager.uninstall_package(package_id)
-        
-        if result.success:
-            print(f"✓ Successfully uninstalled {package_id}")
-        else:
-            print(f"✗ Failed to uninstall {package_id}: {result.message}")
-        
-        input("\nPress Enter to continue...")
-    
-    def _upgrade_package(self, manager):
-        """Upgrade a specific package"""
-        package_id = input("\nEnter package ID to upgrade: ").strip()
-        if not package_id:
-            return
-        
-        print(f"Upgrading {package_id}...")
-        result = manager.upgrade_package(package_id)
-        
-        if result.success:
-            print(f"✓ Successfully upgraded {package_id}")
-        else:
-            print(f"✗ Failed to upgrade {package_id}: {result.message}")
-        
-        input("\nPress Enter to continue...")
-    
-    def _upgrade_all_packages(self, manager):
-        """Upgrade all packages"""
-        confirm = input("\nAre you sure you want to upgrade all packages? This may take a while. (y/N): ").strip().lower()
-        if confirm != 'y':
-            return
-        
-        print("Upgrading all packages...")
-        results = manager.upgrade_all_packages()
-        
-        for result in results:
-            if result.success:
-                print("✓ All packages upgraded successfully")
-            else:
-                print(f"✗ Failed to upgrade packages: {result.message}")
-        
-        input("\nPress Enter to continue...")
     
     def _clear_screen(self):
         """Clear the console screen"""

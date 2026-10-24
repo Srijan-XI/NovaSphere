@@ -23,8 +23,8 @@ python-dbus>=1.2.18; sys_platform == "linux"
 # tkinter-modernui>=1.0.0  # Optional modern tkinter theme
 
 # Web interface
-Flask>=2.3.0
-Flask-CORS>=4.0.0
+fastapi>=0.95.0
+uvicorn>=0.21.0
 
 # Logging and utilities
 colorama>=0.4.6

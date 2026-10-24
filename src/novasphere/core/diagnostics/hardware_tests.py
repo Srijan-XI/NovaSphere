@@ -167,12 +167,17 @@ class HardwareDiagnostics:
                 
                 if result.returncode == 0:
                     output = result.stdout
-                    if "State                  : connected" in output.lower():
+                    if any(
+                        line.split(":", 1)[0].strip().lower() == "state"
+                        and line.split(":", 1)[1].strip().lower() == "connected"
+                        for line in output.splitlines()
+                        if ":" in line
+                    ):
                         return DiagnosticResult(
                             test_name="wifi",
                             status=TestResult.SUCCESS,
                             message="Wi-Fi is connected",
-                            details={"output": output},
+                            details={"connected": True},
                             duration=time.time() - start_time
                         )
                     else:
@@ -180,7 +185,7 @@ class HardwareDiagnostics:
                             test_name="wifi",
                             status=TestResult.WARNING,
                             message="Wi-Fi is not connected",
-                            details={"output": output},
+                            details={"connected": False},
                             duration=time.time() - start_time
                         )
                 
@@ -428,11 +433,13 @@ class HardwareDiagnostics:
             
             # Test if we can create a keyboard listener
             listener = keyboard.Listener(on_press=on_press)
+            listener.start()
+            listener.stop()
             
             return DiagnosticResult(
                 test_name="keyboard",
-                status=TestResult.SUCCESS,
-                message="Keyboard interface is accessible",
+                status=TestResult.WARNING,
+                message="Keyboard listener can start; physical key input requires an interactive test",
                 details={"interactive_test_required": True},
                 duration=time.time() - start_time
             )
@@ -470,16 +477,18 @@ class HardwareDiagnostics:
             
             # Test if we can create a mouse listener
             listener = mouse.Listener(on_click=on_click)
+            listener.start()
+            listener.stop()
             
             # Also test if we can get current mouse position
             current_pos = mouse.Controller().position
             
             return DiagnosticResult(
                 test_name="mouse",
-                status=TestResult.SUCCESS,
-                message="Mouse interface is accessible",
+                status=TestResult.WARNING,
+                message="Mouse listener can start; physical movement and clicks require an interactive test",
                 details={
-                    "current_position": current_pos,
+                    "current_position": list(current_pos),
                     "interactive_test_required": True
                 },
                 duration=time.time() - start_time

@@ -87,7 +87,6 @@ function setupEventListeners() {
     document.getElementById('run-all-tests')?.addEventListener('click', () => runAllDiagnostics());
     document.getElementById('toggle-monitoring')?.addEventListener('click', () => toggleMonitoring());
     document.getElementById('export-metrics')?.addEventListener('click', () => exportMetrics());
-    document.getElementById('check-updates')?.addEventListener('click', () => checkPackageUpdates());
 }
 
 /**
@@ -145,9 +144,6 @@ function loadSectionContent(sectionId) {
             break;
         case 'monitoring':
             loadMonitoringContent();
-            break;
-        case 'packages':
-            loadPackagesContent();
             break;
         case 'home':
             // Home content is static, just update system status
@@ -810,20 +806,6 @@ function loadMonitoringContent() {
 }
 
 /**
- * Load packages content
- */
-function loadPackagesContent() {
-    const contentDiv = document.getElementById('packages-content');
-    
-    contentDiv.innerHTML = `
-        <div class="content-area">
-            <p class="text-muted">Package management interface will be displayed here.</p>
-            <p>This feature integrates with the existing winget package manager.</p>
-        </div>
-    `;
-}
-
-/**
  * Toggle system monitoring
  */
 function toggleMonitoring() {
@@ -857,18 +839,6 @@ function exportMetrics() {
     };
     
     downloadJSON(data, `system_metrics_${new Date().toISOString().split('T')[0]}.json`);
-}
-
-/**
- * Check for package updates
- */
-function checkPackageUpdates() {
-    showLoading('Checking for package updates...');
-    // This would integrate with the package management system
-    setTimeout(() => {
-        hideLoading();
-        showNotification('Package update check completed', 'info');
-    }, 2000);
 }
 
 /**

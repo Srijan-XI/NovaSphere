@@ -35,7 +35,6 @@ Available Tools:
   battery     - Battery monitoring and charging analysis
   diagnostics - Hardware component diagnostics
   monitoring  - System performance monitoring  
-  packages    - Package management (Windows only)
 
 Interface Options:
   --cli       - Command Line Interface (default)
@@ -67,7 +66,7 @@ Examples:
     
     # Tool selection (for CLI)
     parser.add_argument('tool', nargs='?', 
-                       choices=['battery', 'diagnostics', 'monitoring', 'packages'],
+                       choices=['battery', 'diagnostics', 'monitoring'],
                        help='Tool to run (CLI only)')
     
     # General options

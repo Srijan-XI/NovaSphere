@@ -18,7 +18,7 @@ python web_interface.py
 ```
 
 The web interface will automatically:
-- Start the Flask server on http://localhost:5000
+- Start the FastAPI server on http://localhost:8080
 - Open your default web browser
 - Display the main dashboard
 
@@ -51,13 +51,6 @@ The web interface will automatically:
 - **Process Monitor**: Top 10 processes by CPU and memory usage
 - **Temperature**: System temperature readings (if available)
 
-### 📦 Package Manager (http://localhost:5000/packages)
-- **Installed Packages**: View all installed Windows packages
-- **Available Updates**: Check for and install package upgrades
-- **Package Search**: Find and install new packages
-- **Bulk Operations**: Upgrade all packages at once
-- **Operation Log**: History of package management actions
-
 ## API Endpoints
 
 The web interface provides REST API endpoints for programmatic access:
@@ -73,19 +66,6 @@ The web interface provides REST API endpoints for programmatic access:
 
 ### Monitoring API
 - `GET /api/monitoring/metrics` - Get current system metrics
-
-### Package Management API
-- `GET /api/packages/status` - Check winget availability
-- `GET /api/packages/list` - List installed packages
-- `GET /api/packages/upgradable` - List upgradable packages
-- `GET /api/packages/search?q=<query>` - Search for packages
-- `POST /api/packages/install` - Install package
-  ```json
-  {"package_id": "Microsoft.WindowsTerminal"}
-  ```
-- `POST /api/packages/upgrade` - Upgrade specific package
-- `POST /api/packages/upgrade-all` - Upgrade all packages
-- `POST /api/packages/uninstall` - Uninstall package
 
 ## Configuration
 
@@ -135,7 +115,7 @@ The web interface is compatible with:
    - Solution: Manually navigate to http://localhost:5000
 
 3. **API Errors**
-   - Check the terminal output for Flask error messages
+   - Check the terminal output for FastAPI or Uvicorn error messages
    - Ensure all dependencies are installed: `pip install -r requirements.txt`
 
 4. **Hardware Tests Fail**
@@ -179,7 +159,7 @@ The interface uses Bootstrap 5 with custom CSS in `/static/css/`:
 ## Production Deployment
 
 For production use:
-1. Set `debug=False` in Flask configuration
+1. Set `debug=False` in the web configuration
 2. Use a production WSGI server like Gunicorn
 3. Configure proper CORS settings
 4. Add authentication if needed

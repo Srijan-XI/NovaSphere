@@ -22,6 +22,9 @@ async function loadSystemInfo() {
         if (batteryResponse.ok) {
             const batteryData = await batteryResponse.json();
             updateBatteryInfo(batteryData);
+        } else {
+            setUnavailable('battery-level', 'Unavailable');
+            setUnavailable('battery-status', 'Battery service unavailable');
         }
         
         // Load system metrics
@@ -29,18 +32,20 @@ async function loadSystemInfo() {
         if (monitoringResponse.ok) {
             const monitoringData = await monitoringResponse.json();
             updateSystemMetrics(monitoringData);
+        } else {
+            ['cpu-usage', 'memory-usage', 'disk-usage', 'cpu-status', 'memory-status', 'disk-status'].forEach((id) => setUnavailable(id, 'Unavailable'));
         }
         
-        // Load package count
-        const packagesResponse = await fetch('/api/packages/count');
-        if (packagesResponse.ok) {
-            const packagesData = await packagesResponse.json();
-            updatePackageCount(packagesData);
-        }
         
     } catch (error) {
         console.error('Error loading system info:', error);
+        ['cpu-usage', 'memory-usage', 'disk-usage', 'cpu-status', 'memory-status', 'disk-status', 'battery-level', 'battery-status'].forEach((id) => setUnavailable(id, 'Unavailable'));
     }
+}
+
+function setUnavailable(id, text) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = text;
 }
 
 // Update battery information
@@ -68,20 +73,39 @@ function updateBatteryInfo(data) {
 function updateSystemMetrics(data) {
     // CPU Usage
     const cpuUsage = document.getElementById('cpu-usage');
-    if (cpuUsage && data.cpu_percent !== undefined) {
-        cpuUsage.textContent = `${data.cpu_percent.toFixed(1)}%`;
+    const cpuValue = Number(data.cpu_percent || 0);
+    if (cpuUsage) {
+        cpuUsage.textContent = `${cpuValue.toFixed(1)}%`;
     }
     
     // Memory Usage
     const memoryUsage = document.getElementById('memory-usage');
-    if (memoryUsage && data.memory_percent !== undefined) {
-        memoryUsage.textContent = `${data.memory_percent.toFixed(1)}%`;
+    const memoryValue = Number(data.memory_percent || 0);
+    if (memoryUsage) {
+        memoryUsage.textContent = `${memoryValue.toFixed(1)}%`;
     }
     
     // Disk Usage
     const diskUsage = document.getElementById('disk-usage');
-    if (diskUsage && data.disk_percent !== undefined) {
-        diskUsage.textContent = `${data.disk_percent.toFixed(1)}%`;
+    const diskValue = Number(data.disk_percent || 0);
+    if (diskUsage) {
+        diskUsage.textContent = `${diskValue.toFixed(1)}%`;
+    }
+
+    const cpuStatus = document.getElementById('cpu-status');
+    if (cpuStatus) {
+        cpuStatus.textContent = `${cpuValue.toFixed(1)}%`;
+        cpuStatus.className = `badge ${cpuValue < 80 ? 'bg-success' : 'bg-warning'}`;
+    }
+    const memoryStatus = document.getElementById('memory-status');
+    if (memoryStatus) {
+        memoryStatus.textContent = `${memoryValue.toFixed(1)}%`;
+        memoryStatus.className = `badge ${memoryValue < 80 ? 'bg-success' : 'bg-warning'}`;
+    }
+    const diskStatus = document.getElementById('disk-status');
+    if (diskStatus) {
+        diskStatus.textContent = `${diskValue.toFixed(1)}%`;
+        diskStatus.className = `badge ${diskValue < 90 ? 'bg-success' : 'bg-warning'}`;
     }
     
     // Network Status
@@ -92,20 +116,6 @@ function updateSystemMetrics(data) {
             <span class="status-indicator ${isConnected ? 'status-online' : 'status-offline'}"></span>
             ${isConnected ? 'Connected' : 'Disconnected'}
         `;
-    }
-}
-
-// Update package count
-function updatePackageCount(data) {
-    const packageCount = document.getElementById('package-count');
-    if (packageCount && data.installed_count !== undefined) {
-        packageCount.textContent = data.installed_count;
-    }
-    
-    const upgradeCount = document.getElementById('upgrade-count');
-    if (upgradeCount && data.upgradable_count !== undefined) {
-        upgradeCount.textContent = data.upgradable_count;
-        upgradeCount.className = data.upgradable_count > 0 ? 'text-warning' : 'text-success';
     }
 }
 

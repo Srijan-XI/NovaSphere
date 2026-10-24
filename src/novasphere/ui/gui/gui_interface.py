@@ -21,7 +21,6 @@ from novasphere.utils.report_exporter import create_exporter
 from novasphere.core.battery.battery_monitor import create_battery_monitor
 from novasphere.core.diagnostics.hardware_tests import create_diagnostics
 from novasphere.core.monitoring.system_monitor import create_system_monitor
-from novasphere.core.package_mgmt.winget_manager import create_package_manager
 
 try:
     import psutil
@@ -53,7 +52,6 @@ class GUIInterface:
         self.battery_monitor = create_battery_monitor()
         self.diagnostics = create_diagnostics()
         self.system_monitor = create_system_monitor()
-        self.package_manager = create_package_manager()
         
         # UI elements
         self.battery_widgets = {}
@@ -101,7 +99,6 @@ class GUIInterface:
         self._create_monitoring_tab()
         self._create_graphs_tab()
         self._create_diagnostics_tab()
-        self._create_packages_tab()
         self._create_settings_tab()
         
         # Initialize system tray
@@ -301,17 +298,6 @@ class GUIInterface:
         scrollbar = ttk.Scrollbar(results_frame, command=self.diagnostics_widgets['results'].yview)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.diagnostics_widgets['results'].config(yscrollcommand=scrollbar.set)
-    
-    def _create_packages_tab(self):
-        """Create package management tab"""
-        frame = ttk.Frame(self.notebook)
-        self.notebook.add(frame, text="Packages")
-        
-        title = ttk.Label(frame, text="Package Manager (Windows Only)", font=("Arial", 14, "bold"))
-        title.pack(pady=10)
-        
-        info = ttk.Label(frame, text="Package management features available through CLI.\nUse: python main.py --cli packages")
-        info.pack(pady=20)
     
     def _create_graphs_tab(self):
         """Create performance graphs tab"""

@@ -15,13 +15,13 @@
 ### Data Collection
 - **Local Only**: All data stays on your system - no cloud transmission
 - **No Telemetry**: No usage statistics or personal data collected
-- **No Network Access**: Except for package management and updates (optional)
+- **No Network Access**: Except for the web interface (optional)
 - **Open Source**: Complete transparency - review the code yourself
 
 ### Permissions Required
 - **File System**: Read access to system information and configuration files
 - **Hardware Access**: Camera, microphone, speakers for diagnostics (with user consent)
-- **Network**: Optional, only for package management and web interface
+- **Network**: Optional, for the web interface
 - **System Info**: CPU, memory, disk usage monitoring
 
 ### Security Features
